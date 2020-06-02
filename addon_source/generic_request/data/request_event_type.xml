@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--request event category-->
+    <record id="event_category_request_events" model="request.event.category">
+        <field name="name">Request Events</field>
+        <field name="code">request_events</field>
+    </record>
+
+    <!--request event type-->
+    <record id="request_event_type_created" model="request.event.type">
+        <field name="name">Created</field>
+        <field name="code">created</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_stage_changed" model="request.event.type">
+        <field name="name">Stage changed</field>
+        <field name="code">stage-changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_category_changed" model="request.event.type">
+        <field name="name">Category changed</field>
+        <field name="code">category-changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_assigned" model="request.event.type">
+        <field name="name">Assigned</field>
+        <field name="code">assigned</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_reassigned" model="request.event.type">
+        <field name="name">Reassigned</field>
+        <field name="code">reassigned</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_unassigned" model="request.event.type">
+        <field name="name">Unassigned</field>
+        <field name="code">unassigned</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_closed" model="request.event.type">
+        <field name="name">Closed</field>
+        <field name="code">closed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_reopened" model="request.event.type">
+        <field name="name">Reopened</field>
+        <field name="code">reopened</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_changed" model="request.event.type">
+        <field name="name">Changed</field>
+        <field name="code">changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_priority_changed" model="request.event.type">
+        <field name="name">Priority Changed</field>
+        <field name="code">priority-changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_impact_changed" model="request.event.type">
+        <field name="name">Impact Changed</field>
+        <field name="code">impact-changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+    <record id="request_event_type_urgency_changed" model="request.event.type">
+        <field name="name">Urgency Changed</field>
+        <field name="code">urgency-changed</field>
+        <field name="category_id" ref="event_category_request_events"/>
+    </record>
+</odoo>
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="request_stage_type_view_tree" model="ir.ui.view">
+        <field name="name">request.stage.type.tree</field>
+        <field name="model">request.stage.type</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+                <field name="bg_color" widget="color"/>
+                <field name="label_color" widget="color"/>
+                <button name="action_show_requests"
+                        type="object"
+                        class="oe_stat_button" icon="fa-comments-o">
+                    <field string="Requests" name="request_count"
+                            widget="statinfo"/>
+                </button>
+            </tree>
+        </field>
+    </record>
+
+    <record id="request_stage_type_view_form" model="ir.ui.view">
+        <field name="name">request.stage.type.form</field>
+        <field name="model">request.stage.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_requests"
+                                type="object"
+                                class="oe_stat_button" icon="fa-comments-o">
+                            <field string="Requests" name="request_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="toggle_active" type="object" groups="base.group_user"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                        <h3>
+                            <field name="code" placeholder="Code..."/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bg_color" widget="color"/>
+                            <field name="label_color" widget="color"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="request_stage_type_view_kanban" model="ir.ui.view">
+        <field name="name">request.stage.type.kanban</field>
+        <field name="model">request.stage.type</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_request_dashboard_kanban">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="bg_color"/>
+                <field name="label_color"/>
+                <field name="request_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                       <div t-attf-class="oe_kanban_global_click o_request_dashboard_kanban">
+                            <div class="o_request_dashboard_kanban_main">
+                                <div class="o_request_dashboard_content">
+                                    <div class="o_kanban_primary_left">
+                                        <div class="o_primary">
+                                            <span><t t-esc="record.name.raw_value"/></span>
+                                        </div>
+                                        <div t-if="record.code.raw_value" class="text-muted">
+                                            <span><t t-esc="record.code.raw_value"/></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_request_dashboard_kanban_boxes">
+                                <div class="o_stage_type_dashboard_kanban_box" title="Requests" t-attf-style="background-color: {{record.bg_color.raw_value}}">
+                                    <a name="action_show_requests" type="object">
+                                        <span class="o_value" t-attf-style="color: {{record.label_color.raw_value}}"><t t-esc="record.request_count.value"/></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="request_stage_type_action_form" model="ir.actions.act_window">
+        <field name="name">Stage Types</field>
+        <field name="res_model">request.stage.type</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem id="menu_request_stage_type"
+              parent="generic_request.menu_configuration_requests"
+              action="request_stage_type_action_form"/>
+</odoo>

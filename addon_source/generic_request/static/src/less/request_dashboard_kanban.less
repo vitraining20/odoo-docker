@@ -1,0 +1,111 @@
+@odoo-horizontal-padding: 16px;
+@odoo-main-text-color: #4c4c4c;
+
+.rd_button(@color) {
+    color: white;
+    background-color: @color;
+
+    &:hover {
+        background-color: darken(@color, 10%);
+    }
+}
+
+.o_request_dashboard_kanban {
+    padding: 0 !important;
+
+    .o_kanban_record {
+        display: flex;
+        position: relative;
+        min-height: 6em;
+    }
+
+    .o_request_dashboard_kanban_boxes {
+        width: 15%;
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: column nowrap;
+
+        .o_request_dashboard_kanban_box {
+            width: 100%;
+            height: 50%;
+
+            a {
+                display: flex;
+                flex-flow: column nowrap;
+                width: 100%;
+                height: 100%;
+                font-size: large;
+                position: relative;
+                align-items: center;
+                justify-content: center;
+
+                .o_value {
+                    color: white;
+                }
+            }
+        }
+
+        .o_stage_type_dashboard_kanban_box {
+            width: 100%;
+            height: 100%;
+
+            a {
+                display: flex;
+                flex-flow: column nowrap;
+                width: 100%;
+                height: 100%;
+                font-size: large;
+                position: relative;
+                align-items: center;
+                justify-content: center;
+
+                .o_value {
+                    color: white;
+                }
+            }
+        }
+
+        .o_request_dashboard_kanban_box:nth-last-child(1) {
+            .rd_button(grey);
+        }
+
+        .o_request_dashboard_kanban_box:nth-child(1) {
+            .rd_button(@odoo-brand-optional);
+        }
+    }
+
+    .o_request_dashboard_kanban_main {
+        flex: 0 0 auto;
+        padding: @odoo-horizontal-padding / 2;
+        width: 85%;
+
+        .o_request_dashboard_content {
+            width: 100%;
+
+            .o_primary {
+                font-size: larger;
+            }
+
+            .o_buttons {
+                a {
+                    display: inline-flex;
+                    margin: 2px 4px 0 0;
+                    color: @odoo-main-text-color;
+
+                    &:hover {
+                        color: @odoo-brand-optional;
+                    }
+
+                    span {
+                        display: inline;
+                        align-self: center;
+
+                        &:first-of-type {
+                            margin-right: 4px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

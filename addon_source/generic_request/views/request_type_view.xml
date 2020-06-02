@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_request_type_requests" model="ir.actions.act_window">
+        <field name="name">Requests</field>
+        <field name="res_model">request.request</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('type_id', '=', active_id)]</field>
+        <field name="context">{'default_type_id': active_id}</field>
+    </record>
+
+    <record id="action_request_type_routes" model="ir.actions.act_window">
+        <field name="name">Routes</field>
+        <field name="res_model">request.stage.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('request_type_id', '=', active_id)]</field>
+        <field name="context">{'default_request_type_id': active_id}</field>
+    </record>
+
+    <record id="action_request_type_stages" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="res_model">request.stage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('request_type_id', '=', active_id)]</field>
+        <field name="context">{'default_request_type_id': active_id}</field>
+    </record>
+
+    <record id="act_request_dashboard_type_2_open_requests" model="ir.actions.act_window">
+        <field name="name">Open requests</field>
+        <field name="res_model">request.request</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_filter_open': 1, 'search_default_filter_assigned_to_me': 1, 'search_default_filter_created_by_me': 1, 'search_default_filter_unassigned': 1, 'search_default_type_id': active_id}</field>
+    </record>
+    <record id="act_request_dashboard_type_2_closed_requests" model="ir.actions.act_window">
+        <field name="name">Closed requests</field>
+        <field name="res_model">request.request</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_filter_closed': 1, 'search_default_filter_assigned_to_me': 1, 'search_default_filter_created_by_me': 1, 'search_default_filter_unassigned': 1, 'search_default_type_id': active_id}</field>
+    </record>
+
+    <record id="request_type_view_dashboard" model="ir.ui.view">
+        <field name="name">request.type.dashbard</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_request_dashboard_kanban">
+                <field name="name"/>
+                <field name="display_name"/>
+                <field name="code"/>
+                <field name="request_open_count"/>
+                <field name="request_closed_count"/>
+                <field name="help_html"/>
+                <field name="color"/>
+                <field name="stage_count"/>
+                <field name="route_count"/>
+
+                <templates>
+                     <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_request_dashboard_kanban">
+                            <div t-attf-style="background-color: {{ record.color.raw_value }}"
+                                 class="o_request_dashboard_kanban_main">
+                                <div class="o_request_dashboard_content">
+                                    <div class="o_kanban_primary_left">
+                                        <div class="o_primary">
+                                            <span><t t-esc="record.display_name.raw_value"/></span>
+                                        </div>
+                                        <div t-if="record.code.raw_value" class="text-muted">
+                                            <span><t t-esc="record.code.raw_value"/></span>
+                                        </div>
+                                        <div class="o_buttons">
+                                            <a name="%(generic_request.action_request_type_stages)d"
+                                               type="action" title="Stages">
+                                                <span class="fa fa-bars"/>
+                                                <span><t t-esc="record.stage_count.raw_value"/></span>
+                                            </a>
+                                            <a name="%(generic_request.action_request_type_routes)d"
+                                               type="action" title="Routes">
+                                                <span class="fa fa-random"/>
+                                                <span><t t-esc="record.route_count.raw_value"/></span>
+                                            </a>
+                                            <a name="action_request_type_diagram"
+                                               type="object" title="Diagram">
+                                                <span class="fa fa-lg fa-code-fork"/>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_request_dashboard_kanban_boxes">
+                                <div class="o_request_dashboard_kanban_box" title="Open requests">
+                                    <a name="%(act_request_dashboard_type_2_open_requests)d" type="action">
+                                        <span class="o_value"><t t-esc="record.request_open_count.value"/></span>
+                                    </a>
+                                </div>
+                                <div class="o_request_dashboard_kanban_box" title="Closed requests">
+                                    <a name="%(act_request_dashboard_type_2_closed_requests)d" type="action">
+                                        <span class="o_value"><t t-esc="record.request_closed_count.raw_value"/></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_type_search">
+        <field name="name">view.request.type.search</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+
+                <separator/>
+                <field name="category_ids"/>
+
+                <separator/>
+                <field name="kind_id"/>
+
+                <separator/>
+                <filter name="filter_archived"
+                        string="Archived"
+                        domain="[('active', '=', False)]"/>
+
+                <group name="group_group_by">
+                    <filter name="filter_group_by_kind"
+                            string="Kind" context="{'group_by': 'kind_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_type_tree">
+        <field name="name">view.request.type.tree</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+                <field name="category_ids"
+                       widget="many2many_tags"
+                       options="{'color_field': 'color'}"/>
+                <field name="kind_id"/>
+                <field name="stage_count"/>
+                <field name="route_count"/>
+                <field name="request_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_type_form">
+        <field name="name">view.request.type.form</field>
+        <field name="model">request.type</field>
+        <field name="arch" type="xml">
+            <form string="Request Type">
+                <field name="id" invisible="1"/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_request_type_requests)d"
+                                type="action"
+                                class="oe_stat_button" icon="fa-comments-o">
+                            <field string="Requests" name="request_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="%(action_request_type_routes)d"
+                                type="action"
+                                class="oe_stat_button" icon="fa-random">
+                            <field string="Routes" name="route_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="%(action_request_type_stages)d"
+                                type="action"
+                                class="oe_stat_button" icon="fa-bars">
+                            <field string="Stages" name="stage_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="action_request_type_diagram"
+                                type="object"
+                                string="View Flow"
+                                class="oe_stat_button"
+                                icon="fa-code-fork">
+                        </button>
+                        <button name="toggle_active" type="object" groups="base.group_user"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1 name="header_type">
+                            <field name="name" placeholder="Request type name..."/>
+                        </h1>
+                        <h3 name="header_code">
+                            <field name="code" placeholder="Request type code..."/>
+                        </h3>
+                        <h3 name="header_categories">
+                            <field name="category_ids"
+                                   placeholder="Request categories..."
+                                   options="{'color_field': 'color'}"
+                                   widget="many2many_tags"/>
+                        </h3>
+                    </div>
+                    <notebook>
+                        <page string="Description" name="page_description">
+                            <group>
+                                <field name="start_stage_id"/>
+                                <field name="sequence_id" placeholder="Sequence..."/>
+                                <field name="color" widget="color"/>
+                                <field name="complex_priority"/>
+                                <field name="default_priority"
+                                    widget="priority"
+                                    attrs="{'invisible': [('complex_priority', '=', True)]}"
+                                />
+                                <field name="default_impact"
+                                    widget="priority"
+                                    attrs="{'invisible': [('complex_priority', '=', False)]}"
+                                />
+                                <field name="default_urgency"
+                                    widget="priority"
+                                    attrs="{'invisible': [('complex_priority', '=', False)]}"
+                                />
+                            </group>
+
+                            <separator colspan="4" string="Description"/>
+                            <field colspan="4" name="description"
+                                   nolabel="1" select="2" placeholder="Description"/>
+                        </page>
+                        <page string="Write control" name="page_write_control">
+                        </page>
+                        <page string="Help" name="page_help">
+                            <field colspan="4" name="help_html"/>
+                        </page>
+                        <page string="Instruction" name="page_instruction">
+                            <field colspan="4" name="instruction_html"/>
+                        </page>
+                        <page string="Note" name="page_note">
+                            <field colspan="4" name="note_html"/>
+                        </page>
+                        <page string="Defaults" name="page_defaults">
+                            <separator colspan="4" string="Default request's text"/>
+                            <field colspan="4" name="default_request_text"/>
+                        </page>
+                        <page string="Notifications" name="page_notifications">
+                            <div>
+                                <separator/>
+                                <table class="table table-bordered" name="table-notification-settings">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">Send Default Notification</th>
+                                            <th class="text-center">Show Request Text</th>
+                                            <th class="text-center">Show Response Text</th>
+                                        </tr>
+                                    </thead>
+                                        <tbody class="text-center">
+                                            <tr>
+                                                <td class="text-left">Created</td>
+                                                <td><field name="send_default_created_notification" style="width: 25%"/></td>
+                                                <td><field name="created_notification_show_request_text"/></td>
+                                                <td><field name="created_notification_show_response_text"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">Assigned</td>
+                                                <td><field name="send_default_assigned_notification" style="width: 25%"/></td>
+                                                <td><field name="assigned_notification_show_request_text"/></td>
+                                                <td><field name="assigned_notification_show_response_text"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">Closed</td>
+                                                <td><field name="send_default_closed_notification" style="width: 25%"/></td>
+                                                <td><field name="closed_notification_show_request_text"/></td>
+                                                <td><field name="closed_notification_show_response_text"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">Reopened</td>
+                                                <td><field name="send_default_reopened_notification" style="width: 25%"/></td>
+                                                <td><field name="reopened_notification_show_request_text"/></td>
+                                                <td><field name="reopened_notification_show_response_text"/></td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_type_diagram">
+        <field name="model">request.type</field>
+        <field name="type">diagram_plus</field>
+        <field name="arch" type="xml">
+            <diagram_plus>
+                <node object="request.stage"
+                      bgcolor="gray:closed"
+                      bg_color_field="res_bg_color"
+                      fg_color_field="res_label_color">
+                    <field name="name"/>
+                    <field name="closed"/>
+                    <field name="res_bg_color"/>
+                    <field name="res_label_color"/>
+                </node>
+                <arrow object="request.stage.route"
+                       source="stage_from_id"
+                       destination="stage_to_id"
+                       label="['name']">
+                    <field name="stage_from_id"/>
+                    <field name="stage_to_id"/>
+                    <field name="name"/>
+                </arrow>
+            </diagram_plus>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_type_window">
+        <field name="name">Types</field>
+        <field name="res_model">request.type</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'create_default_stages': True}</field>
+    </record>
+
+    <menuitem id="menu_type_view"
+              parent="menu_configuration_requests"
+              action="action_type_window"/>
+
+</odoo>

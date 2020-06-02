@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <!-- demo request type with complex priority-->
+    <record id="request_type_with_complex_priority" model="request.type">
+        <field name="name">Request with complex priority</field>
+        <field name="code">request_with_complex_priority</field>
+        <field name="category_ids" eval="[(4, ref('generic_request.request_category_demo_general'), 0)]"/>
+        <field name="complex_priority" eval="True"/>
+        <field name="default_impact">2</field>
+        <field name="default_urgency">2</field>
+        <field name="help_html">
+            This is demo request type to demonstrate complex priority.
+            This priority is automatically computed from impact and Urgency.
+        </field>
+    </record>
+
+    <!-- Stages -->
+    <record id="request_type_with_complex_priority_new" model="request.stage">
+        <field name="sequence" eval="1"/>
+        <field name="name">New</field>
+        <field name="code">new</field>
+        <field name="request_type_id" ref="request_type_with_complex_priority"/>
+    </record>
+    <record id="request_type_with_complex_priority_in_progress" model="request.stage">
+        <field name="sequence" eval="2"/>
+        <field name="name">In Progress</field>
+        <field name="code">in_progress</field>
+        <field name="request_type_id" ref="request_type_with_complex_priority"/>
+    </record>
+    <record id="request_type_with_complex_priority_done" model="request.stage">
+        <field name="sequence" eval="3"/>
+        <field name="name">Done</field>
+        <field name="code">done</field>
+        <field name="request_type_id" ref="request_type_with_complex_priority"/>
+    </record>
+
+    <!-- Routes -->
+    <record id="request_type_with_complex_priority_new_to_in_progress"
+            model="request.stage.route">
+        <field name="name">New to In Progress</field>
+        <field name="stage_from_id" ref="request_type_with_complex_priority_new"/>
+        <field name="stage_to_id" ref="request_type_with_complex_priority_in_progress"/>
+        <field name="request_type_id" ref="request_type_with_complex_priority"/>
+    </record>
+    <record id="request_type_with_complex_priority_in_progress_to_done"
+            model="request.stage.route">
+        <field name="name">In Progress to Done</field>
+        <field name="stage_from_id" ref="request_type_with_complex_priority_in_progress"/>
+        <field name="stage_to_id" ref="request_type_with_complex_priority_done"/>
+        <field name="request_type_id" ref="request_type_with_complex_priority"/>
+    </record>
+
+    <!--demo request -->
+    <record id="demo_request_with_complex_priority" model="request.request">
+        <field name="type_id" ref="request_type_with_complex_priority"/>
+        <field name="impact">1</field>
+        <field name="urgency">2</field>
+        <field name="request_text">This is demo request with complex priority</field>
+    </record>
+</odoo>

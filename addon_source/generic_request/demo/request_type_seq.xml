@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Request Type sequence-->
+    <record id="seq_resource_request_demo" model="ir.sequence">
+        <field name="name">Resource Request Seq</field>
+        <field name="code">resource.request.sequence</field>
+        <field name="prefix">RSR-%(month)s%(year)s-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <!-- sequence request type with sepcified non-default sequence
+    -->
+    <record id="request_type_sequence" model="request.type">
+        <field name="name">Printer Request</field>
+        <field name="code">printer_request</field>
+        <field name="description">Request access to one of network printers</field>
+        <field name="note_html"><![CDATA[
+            Choose printer You want to get access for
+        ]]></field>
+        <field name="help_html"><![CDATA[
+            This request type is used to request access to printer.
+        ]]></field>
+        <field name="instruction_html"><![CDATA[
+            <h1>Here is just example of instruction.</h1>
+           
+            <hr/> 
+
+            <h2>You can use here html, for formatting.</h2>
+
+            <p>Below is example of list, that describes steps to solve request</p>
+
+            <ol>
+                <li>Step 1</li>
+                <li>Step 2</li>
+                <li>Step N</li>
+            </ol>
+        ]]></field>
+        <field name="sequence_id" ref="seq_resource_request_demo"/>
+        <field name="category_ids"
+               eval="[(6, 0, [ref('generic_request.request_category_demo_resource'),
+                              ref('generic_request.request_category_demo_technical_configuration')])]"/>
+        <field name="kind_id" ref="request_kind_demo"/>
+    </record>
+
+    <!-- sequence request type stages -->
+    <record id="request_stage_type_sequence_new" model="request.stage">
+        <field name="sequence" eval="5"/>
+        <field name="name">New</field>
+        <field name="code">new</field>
+        <field name="type_id" ref="request_stage_type_draft"/>
+        <field name="request_type_id" ref="request_type_sequence"/>
+        <field name="description">Just created request</field>
+        <field name="help_html"><![CDATA[
+             This is draft request. You can still edit it.
+             When you think it is finished, send it.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_sequence_sent" model="request.stage">
+        <field name="sequence" eval="10"/>
+        <field name="name">Sent</field>
+        <field name="code">sent</field>
+        <field name="type_id" ref="request_stage_type_sent"/>
+        <field name="request_type_id" ref="request_type_sequence"/>
+        <field name="description">Request sent</field>
+        <field name="help_html"><![CDATA[
+             This request is waiting to be processed.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_sequence_closed" model="request.stage">
+        <field name="sequence" eval="15"/>
+        <field name="name">Closed</field>
+        <field name="code">closed</field>
+        <field name="type_id" ref="request_stage_type_closed_ok"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_sequence"/>
+        <field name="description">Request is closed</field>
+        <field name="help_html"><![CDATA[
+            This request is closed
+        ]]></field>
+    </record>
+
+    <!-- sequence request type routes -->
+    <record id="request_stage_route_type_sequence_new_to_sent"
+            model="request.stage.route">
+        <field name="name">Send</field>
+        <field name="sequence" eval="5"/>
+        <field name="stage_from_id" ref="request_stage_type_sequence_new"/>
+        <field name="stage_to_id" ref="request_stage_type_sequence_sent"/>
+        <field name="request_type_id" ref="request_type_sequence"/>
+    </record>
+    <record id="request_stage_route_type_sequence_sent_to_closed"
+            model="request.stage.route">
+        <field name="name">Close</field>
+        <field name="sequence" eval="10"/>
+        <field name="stage_from_id" ref="request_stage_type_sequence_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_sequence_closed"/>
+        <field name="request_type_id" ref="request_type_sequence"/>
+    </record>
+
+    <!-- Request Request -->
+    <record id="request_request_type_sequence_demo_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>Printer in 228 room</h1>
+
+            <p>Please, give me access to printer located in 228 room</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_sequence"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="category_id" ref="request_category_demo_resource"/>
+        <field name="author_id" ref="base.res_partner_address_3"/>
+    </record>
+
+    <!-- Demo Printer Request -->
+    <record id="request_request_type_sequence_printer_request" model="request.request">
+        <field name="request_text"><![CDATA[
+            <p>Provide me access to printer. I'm in room 32.</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_sequence"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="category_id" ref="request_category_demo_resource"/>
+        <field name="author_id" ref="base.res_partner_address_4"/>
+    </record>
+
+    <!-- Assign demo request manager and move to Sent stage -->
+    <function model="request.request"
+              name="write">
+        <function model="request.request"
+                  name="search"
+                  eval="[[('id', '=', ref('generic_request.request_request_type_sequence_printer_request'))]]"/>
+        <value eval="{
+                'user_id': ref('generic_request.user_demo_request_manager'),
+                'stage_id': ref('generic_request.request_stage_type_sequence_sent'),
+            }"
+        />
+    </function>
+
+</odoo>

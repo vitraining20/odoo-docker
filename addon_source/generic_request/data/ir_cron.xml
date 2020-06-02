@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+        <record id="ir_cron_request_vacuum_events" model="ir.cron">
+            <field name="name">Generic Request: Vacuum Events</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_event"/>
+            <field name="code">model._scheduler_vacuum()</field>
+            <field name="active" eval="True" />
+        </record>
+</odoo>

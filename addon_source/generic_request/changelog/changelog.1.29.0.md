@@ -1,0 +1,3 @@
+- Module `generic_request_kind` merged into `generic_request`
+- Added demo request with long description and images
+- [FIX] display of images in request body

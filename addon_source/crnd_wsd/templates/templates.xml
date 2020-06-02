@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="wsd_assets"
+              inherit_id="website.assets_frontend"
+              name="Service Desk Website Assets">
+        <xpath expr="." position="inside">
+            <!-- Trumbowyg -->
+            <script type="text/javascript" src="/crnd_wsd/static/lib/trumbowyg/dist/trumbowyg.min.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/lib/trumbowyg/dist/langs/ua.min.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/lib/trumbowyg/dist/plugins/table/trumbowyg.table.min.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/lib/trumbowyg/dist/plugins/colors/trumbowyg.colors.min.js"/>
+            <link rel='stylesheet' type="text/css" href="/crnd_wsd/static/lib/trumbowyg/dist/ui/trumbowyg.min.css"/>
+            <link rel='stylesheet' type="text/css" href="/crnd_wsd/static/lib/trumbowyg/dist/plugins/table/ui/trumbowyg.table.min.css"/>
+            <link rel='stylesheet' type="text/css" href="/crnd_wsd/static/lib/trumbowyg/dist/plugins/colors/ui/trumbowyg.colors.min.css"/>
+            <!-- *** -->
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/trumbowyg.upload-file.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/trumbowyg.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/blockui.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/request_discussion.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/request_new.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/request_actions.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/enable_popovers.js"/>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/widgets.js"/>
+            <link rel='stylesheet' type="text/less" href='/crnd_wsd/static/src/less/request.less'/>
+            <link rel='stylesheet' type="text/css" href="/crnd_wsd/static/src/less/blockui_spin.css"/>
+        </xpath>
+    </template>
+
+    <template id="wsd_tests"
+              name="Website Service Desk Tests"
+              inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_mail_login_portal.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_action_no_actions.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_action_actions.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_action_actions_redirect.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_base.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_new.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_new_default_text.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_public_user.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_public_user_redirect.js"></script>
+            <script type="text/javascript" src="/crnd_wsd/static/src/js/tours/request_filter_kind.js"></script>
+
+        </xpath>
+    </template>
+
+    <template id="wsd_request_navigation">
+        <div class="request_navigation row mt16">
+            <div class="oe_structure col-sm-12"/>
+            <div class="request_navigation_left col-12 col-sm-12 col-lg-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"/></a></li>
+                    <t t-if="request_name">
+                        <li class="breadcrumb-item"><a href="/requests">Requests</a></li>
+                        <li class="breadcrumb-item active" t-if="request_name == 'new'">New</li>
+                        <li class="breadcrumb-item active" t-else=""><t t-esc="request_name"/></li>
+                    </t>
+                    <t t-else="">
+                        <li class="breadcrumb-item active">Requests</li>
+                    </t>
+                </ol>
+            </div>
+            <div class="request_navigation_right col-12 col-sm 12 col-lg-6">
+                <t t-raw="0"/>
+            </div>
+            <div class="oe_structure col-sm-12"/>
+        </div>
+    </template>
+
+    <template id="wsd_layout">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure"/>
+                <t t-raw="0"/>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="wsd_request_table" name="Request table">
+        <table class="table mt16 wsd_requests_table">
+            <tbody>
+                <t t-foreach="reqs" t-as="req">
+                    <tr>
+                        <td class="wsd_request">
+                            <div class="request_top">
+                                <span class="request-title">
+                                    <a class="request-name"
+                                    t-attf-href="/requests/request/{{req.id}}">
+                                    <t t-esc="req.name"/>
+                                    </a>
+                                </span>
+                                <span class="request-shortcuts ml8">
+                                    <a t-attf-href="/requests/request/{{req.id}}#discussion"
+                                       title="Comments"
+                                       class="fa fa-comments mr4">
+                                    </a>
+                                </span>
+                                <div class="right_info">
+                                    <span class="badge"
+                                          t-attf-style="background-color: {{req.stage_bg_color}}; color: {{req.stage_label_color}}">
+                                         <t t-esc="req.stage_id.name"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <t t-esc="req.request_text_sample"/>
+                            </div>
+                            <div class="request_content">
+                                <div class="content_info">
+                                    <div class="text-muted">
+
+                                        <div t-if="req.category_id" class="content-info-category">
+                                            <span class="fa fa-bars mr4" title="Category"/>
+                                            <span t-field="req.category_id.display_name" title="Category"/>
+
+                                            <span t-if="req.category_id.description"
+                                                role="button" data-toggle="popover"
+                                                title="Category"
+                                                data-placement="right"
+                                                data-trigger="hover"
+                                                class="fa fa-question text-muted"
+                                                t-attf-data-content="{{ req.category_id.description }}"/>
+
+                                        </div>
+
+                                        <div class="content-info-type">
+                                            <span class="fa fa-hashtag mr4" title="Type"/>
+                                            <span t-field="req.type_id.name" title="Type"/>
+
+                                            <span t-if="req.type_id.description"
+                                               role="button" data-toggle="popover"
+                                               title="Type"
+                                               data-placement="right"
+                                               data-trigger="hover"
+                                               class="fa fa-question text-muted"
+                                               t-attf-data-content="{{ req.type_id.description }}"/>
+
+                                        </div>
+
+                                        <div t-if="req.kind_id" class="content-info-kind">
+                                            <span class="fa fa-square mr4" title="Kind"/>
+                                            <span t-field="req.kind_id.display_name" title="Kind"/>
+                                            <span t-if="req.kind_id.description"
+                                                  role="button" data-toggle="popover"
+                                                  title="Kind"
+                                                  data-placement="right"
+                                                  data-trigger="hover"
+                                                  class="fa fa-question text-muted"
+                                                  t-attf-data-content="{{ req.kind_id.description }}"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="content_dates hidden-xs">
+                                    <span t-field="req.author_avatar" t-att-title="req.author_id.name" t-options="{'widget': 'image', 'class': 'img-rounded user_image mr8'}"/>
+                                    <span t-field="req.date_created" class="date"/>
+                                    <t t-if="req.date_assigned">
+                                        <span class="fa fa-angle-right mr8 ml8"></span>
+                                        <span t-field="req.assignee_avatar" t-att-title="req.user_id.name" t-options="{'widget': 'image', 'class': 'img-rounded user_image mr8'}"/>
+                                        <span t-field="req.date_assigned" class="date"/>
+                                    </t>
+                                    <t t-if="req.date_closed">
+                                        <span class="fa fa-angle-right mr8 ml8"></span>
+                                        <span t-field="req.closed_by_avatar" t-att-title="req.closed_by_id.name" t-options="{'widget': 'image', 'class': 'img-rounded user_image mr8'}"/>
+                                        <span t-field="req.date_closed" class="date"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="wsd_requests_filterbox" name="Requests Filterbox">
+        <div id="wsd-request-filter-box" class="mb16">
+            <form id="wsd-request-search" class="input-group"
+                  t-att-action="keep('/requests/%s' % req_status, search=False)">
+                <span id="wsd-request-search-kind"
+                      t-if="request_kinds"
+                      class="input-group-btn">
+                    <a t-if="selected_request_kind"
+                       class="btn btn-default"
+                       t-att-href="keep(kind_id=False)">
+                        All</a>
+                    <a t-foreach="request_kinds" t-as="req_kind"
+                       t-attf-class="btn btn-default {{ req_kind == selected_request_kind and 'active' or '' }}"
+                       t-att-href="req_kind == selected_request_kind and keep(kind_id=False) or keep(kind_id=req_kind.id)"
+                       t-att-title="req_kind.description"
+                       t-esc="req_kind.website_filter_name or req_kind.name"/>
+                </span>
+                <input type="text" name="search"
+                       class="form-control"
+                       placeholder="Search by name, type, category or request message"
+                       t-att-value="search"/>
+                <span id="wsd-request-search-after"
+                      class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit"><span class="fa fa-search"/></button>
+                </span>
+            </form>
+        </div>
+
+        <ul class="nav nav-pills">
+            <li t-attf-class="nav-item {{(req_status == 'my') and 'active'}}" role="presentation">
+                <a t-attf-class="nav-link {{(req_status == 'my') and 'active'}}" t-att-href="keep('/requests/my')">
+                    My <span t-attf-class="badge badge-{{req_status == 'my' and 'secondary' or 'primary'}}" t-esc="req_count['my']"/>
+                </a>
+            </li>
+            <li t-attf-class="nav-item {{(req_status == 'open') and 'active'}}" role="presentation">
+                <a t-attf-class="nav-link {{(req_status == 'open') and 'active'}}" t-att-href="keep('/requests/open')">
+                    Open <span t-attf-class="badge badge-{{req_status == 'open' and 'secondary' or 'primary'}}" t-esc="req_count['open']"/>
+                </a>
+            </li>
+            <li t-attf-class="nav-item {{(req_status == 'closed') and 'active'}}" role="presentation">
+                <a t-attf-class="nav-link {{(req_status == 'closed') and 'active'}}" t-att-href="keep('/requests/closed')">
+                    Closed <span t-attf-class="badge badge-{{req_status == 'closed' and 'secondary' or 'primary'}}" t-esc="req_count['closed']"/>
+                </a>
+            </li>
+            <li t-attf-class="nav-item {{(req_status == 'all') and 'active'}}" role="presentation">
+                <a t-attf-class="nav-link {{(req_status == 'all') and 'active'}}" t-att-href="keep('/requests/all')">
+                    All <span t-attf-class="badge badge-{{req_status == 'all' and 'secondary' or 'primary'}}" t-esc="req_count['all']"/>
+                </a>
+            </li>
+        </ul>
+    </template>
+
+    <template id="wsd_requests" name="Requests">
+        <t t-call="crnd_wsd.wsd_layout">
+            <section class="container wsd_requests">
+
+                <t t-call="crnd_wsd.wsd_request_navigation">
+                    <a class="btn btn-primary"
+                        href="/requests/new">Create request</a>
+                </t>
+
+                <t t-call="crnd_wsd.wsd_requests_filterbox"/>
+                <t t-if="request.website.is_public_user()">
+                    <div class="row">
+                        <div class="oe_structure text-center col-md-12 mt24">
+                            <h4>Please,
+                                <t t-if="request.env['res.users']._get_signup_invitation_scope() == 'b2c'">
+                                    <a t-attf-href="/web/signup?{{ get_redirect() }}">Sign Up</a>
+                                    or
+                                </t>
+                                <a t-attf-href="/web/login?{{ get_redirect() }}">Sign In</a>
+                                to be able to view and create requests.
+                            </h4>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="not reqs">
+                    <div class="row">
+                        <div class="oe_structure col-md-12 mb16" align="center">
+                            <h3>There are currently no requests.</h3>
+                            <p>:(</p>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-call="crnd_wsd.wsd_request_table"/>
+
+                    <div align="center">
+                        <t t-call="website.pager" />
+                    </div>
+                </t>
+            </section>
+        </t>
+    </template>
+
+    <template id="request_short_info">
+        <div class="text-muted request-short-info">
+            <div t-if="rel_req.category_id" class="content-info-category">
+                <span class="fa fa-bars mr4" title="Category"/>
+                <span t-field="rel_req.category_id.display_name" title="Category"/>
+            </div>
+            <div class="content-info-type">
+                <span class="fa fa-hashtag mr4" title="Type"/>
+                <span t-field="rel_req.type_id.display_name" title="Type"/>
+            </div>
+            <div t-if="rel_req.kind_id" class="content-info-kind">
+                <span class="fa fa-square mr4" title="Kind"/>
+                <span t-field="rel_req.kind_id.display_name" title="Kind"/>
+            </div>
+        </div>
+    </template>
+
+    <!-- Expectes 'rel_req' variable in context.
+         This variable must contain RequestRequest record
+    -->
+    <template id="wsd_request_simplified_line">
+        <tr class="wsd_request_simplified_line">
+            <td class="wsd_request">
+                <div class="request_top request_content">
+                    <span class="request-title request_title_subrequest mr4">
+                        <t t-if="can_read_request(rel_req)">
+                            <a class="request-name mr8"
+                               t-attf-href="/requests/request/{{rel_req.id}}">
+                            <t t-esc="rel_req.name"/>
+                            </a>
+                        </t>
+                        <t t-else="">
+                            <t t-esc="rel_req.name"/>
+                        </t>
+                    </span>
+
+                    <span class="content-info-type text-muted mr8">
+                        <span t-field="rel_req.type_id.name" title="Type"/>
+                    </span>
+
+                    <span class="request-short-info-link text-muted mr8">
+                        <span class="fa fa-info-circle info-toggle mr8"
+                              title="Show request info"/>
+                        <t t-call="crnd_wsd.request_short_info"/>
+                    </span>
+
+                    <span t-if="rel_req.user_id"
+                          t-field="rel_req.assignee_avatar"
+                          t-att-title="'Assigned to: '+rel_req.user_id.name"
+                          t-options="{'widget': 'image', 'class': 'user_image_small user-assigned_image mr4'}"/>
+                    <span t-if="rel_req.user_id"
+                          t-field="rel_req.user_id.name"
+                          class="text-muted user_assigned"
+                          title="Assigned"/>
+                    <div class="right_info">
+                        <span class="badge"
+                              t-attf-style="background-color: {{rel_req.stage_bg_color}}; color: {{rel_req.stage_label_color}}">
+                            <t t-esc="rel_req.stage_id.name"/>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="request_content">
+
+                    <div class="content_left">
+                        <span class="request-text-read-more"
+                              t-esc="rel_req.request_text_sample"/>
+                    </div>
+
+                    <div class="content_right hidden-xs ml16 mt8 text-muted">
+                        <div t-field="rel_req.date_created"
+                            t-attf-title="Created: {{ rel_req.date_created }}"
+                            class="date date-moment"/>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+    <template id="wsd_request_portal_my_home" name="Portal My Home: request entries" inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="request_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Requests</t>
+                <t t-set="url" t-value="'/requests/my'"/>
+                <t t-set="count" t-value="request_count"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

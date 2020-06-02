@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Base template -->
+    <template id="message_request_notification__request_info">
+        <div id="request-mail-request-info">
+            <table cellspacing="0" border="0" style="width: 100%; margin-top: 5px; max-width: 600px">
+            <tbody>
+                <tr name="tr_request_name" style="vertical-align: top">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Name</th>
+                    <td style="border-bottom: 1px solid #ccc;"><a t-att-href="object.get_mail_url()" target="_blank" t-esc="object.name"/></td>
+                </tr>
+                <tr name="tr_request_stage" style="vertical-align: top">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Stage</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.stage_id.display_name"/></td>
+                </tr>
+
+                <tr name="tr_request_category" t-if="object.category_id" style="vertical-align: top" class="request-info-category">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Category</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().category_id.display_name"/></td>
+                </tr>
+
+                <tr name="tr_request_type" style="vertical-align: top" class="request-info-type">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Type</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().type_id.display_name"/></td>
+                </tr>
+                <tr t-if="object.sudo().type_id.kind_id" style="vertical-align: top" class="request-info-kind">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Kind</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().type_id.kind_id.display_name"/></td>
+                </tr>
+
+                <tr name="tr_request_author" style="vertical-align: top">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Author</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().author_id.name"/></td>
+                </tr>
+                <tr name="tr_request_created_by" t-if="object.sudo().created_by_id.partner_id != object.sudo().author_id" style="vertical-align: top">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Created by</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().created_by_id.name"/></td>
+                </tr>
+                <tr name="tr_request_assignee" t-if="object.sudo().user_id" style="vertical-align: top">
+                    <th style="border-bottom: 1px solid #ccc; text-align: left;">Assignee</th>
+                    <td style="border-bottom: 1px solid #ccc;"><span t-esc="object.sudo().user_id.name"/></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="message_request_notification__header">
+        <div id="request-mail-header">
+            <div itemscope="itemscope" itemtype="http://schema.org/EmailMessage">
+                <div itemprop="potentialAction" itemscope="itemscope" itemtype="http://schema.org/ViewAction">
+                    <link itemprop="target" target="_blank" t-att-href="object.get_mail_url()"/>
+                    <link itemprop="url" target="_blank" t-att-href="object.get_mail_url()"/>
+                    <meta itemprop="name" content="View Request"/>
+                </div>
+            </div>
+            <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; margin-top: 5px;">
+            <tbody><tr>
+                <td valign="center">
+                    <a target="_blank" t-att-href="object.get_mail_url()"
+                       style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #875A7B; border: 0px solid #875A7B; border-radius:3px">
+                        View Request</a>
+                </td>
+                <td valign="center" align="right">
+                    <img t-attf-src="/logo.png{{ '?company=%s' % company.id if company else '' }}"
+                        style="padding: 0px; margin: 0px; height: auto; max-width: 80px; max-height: 40px;"
+                        t-att-alt="company.name if company else ''"/>
+                </td>
+            </tr>
+            </tbody></table>
+        </div>
+    </template>
+
+    <template id="message_request_notification__template">
+        <div style="width: 600px">
+            <t t-call="generic_request.message_request_notification__header"/>
+            <hr/>
+            <div id="request-mail-template-body">
+                <t t-raw="0"/>
+            </div>
+            <hr/>
+            <t t-call="generic_request.message_request_notification__request_info"/>
+            <hr/>
+        </div>
+    </template>
+
+    <!-- Specific templates -->
+    <template id="message_request_created__author">
+        <t t-call="generic_request.message_request_notification__template">
+            <p>Dear <t t-esc="partner.name"/>,</p>
+            <p>Your request <strong><a t-att-href="object.get_mail_url()" target="_blank" t-esc="object.display_name"/></strong> has been created.</p>
+        </t>
+        <div id="request-request-response-box">
+            <t t-if="object.sudo().type_id.created_notification_show_request_text">
+                <div>
+                    <p><strong>Request text:</strong></p>
+                    <t t-raw="object.sudo().request_text_sample"/>
+                    <a t-att-href="object.get_mail_url()" target="_blank">...</a>
+                </div>
+            </t>
+            <hr/>
+            <t t-if="object.sudo().type_id.created_notification_show_response_text and object.sudo().response_text">
+                <div>
+                    <p><strong>Response text:</strong></p>
+                    <t t-raw="object.sudo().response_text"/>
+                </div>
+            </t>
+            <hr/>
+        </div>
+    </template>
+
+    <template id="message_request_assigned__assignee">
+        <t t-call="generic_request.message_request_notification__template">
+            <p>Dear <t t-esc="partner.display_name"/>,</p>
+            <p>You have been assigned to the request <strong><a t-att-href="object.get_mail_url()" target="_blank" t-esc="object.display_name"/></strong>.</p>
+        </t>
+        <div id="request-request-response-box">
+            <t t-if="object.sudo().type_id.assigned_notification_show_request_text">
+                <div>
+                    <p><strong>Request text:</strong></p>
+                    <t t-raw="object.sudo().request_text_sample"/>
+                    <a t-att-href="object.get_mail_url()" target="_blank">...</a>
+                </div>
+            </t>
+            <hr/>
+            <t t-if="object.sudo().type_id.assigned_notification_show_response_text and object.sudo().response_text">
+                <div>
+                    <p><strong>Response text:</strong></p>
+                    <t t-raw="object.sudo().response_text"/>
+                </div>
+            </t>
+            <hr/>
+        </div>
+    </template>
+
+    <template id="message_request_closed__author">
+        <t t-call="generic_request.message_request_notification__template">
+            <p>Dear <t t-esc="partner.name"/>,</p>
+            <p>Your request <strong><a t-att-href="object.get_mail_url()" target="_blank" t-esc="object.display_name"/></strong> has been closed.</p>
+        </t>
+        <div id="request-request-response-box">
+            <t t-if="object.sudo().type_id.closed_notification_show_request_text">
+                <div>
+                    <p><strong>Request text:</strong></p>
+                    <t t-raw="object.sudo().request_text_sample"/>
+                    <a t-att-href="object.get_mail_url()" target="_blank">...</a>
+                </div>
+            </t>
+            <hr/>
+            <t t-if="object.sudo().type_id.closed_notification_show_response_text and object.sudo().response_text">
+                <div>
+                    <p><strong>Response text:</strong></p>
+                    <t t-raw="object.sudo().response_text"/>
+                </div>
+            </t>
+            <hr/>
+        </div>
+    </template>
+
+    <template id="message_request_reopened__author">
+        <t t-call="generic_request.message_request_notification__template">
+            <p>Dear <t t-esc="partner.name"/>,</p>
+            <p>Your request <strong><a t-att-href="object.get_mail_url()" target="_blank" t-esc="object.display_name"/></strong> has been reopened.</p>
+        </t>
+        <div id="request-request-response-box">
+            <t t-if="object.sudo().type_id.reopened_notification_show_request_text">
+                <div>
+                    <p><strong>Request text:</strong></p>
+                    <t t-raw="object.sudo().request_text_sample"/>
+                    <a t-att-href="object.get_mail_url()" target="_blank">...</a>
+                </div>
+            </t>
+            <hr/>
+            <t t-if="object.sudo().type_id.reopened_notification_show_response_text and object.sudo().response_text">
+                <div>
+                    <p><strong>Response text:</strong></p>
+                    <t t-raw="object.sudo().response_text"/>
+                </div>
+            </t>
+            <hr/>
+        </div>
+    </template>
+</odoo>

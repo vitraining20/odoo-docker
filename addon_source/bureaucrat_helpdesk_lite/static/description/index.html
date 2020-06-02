@@ -1,0 +1,225 @@
+<section style="max-width: 896px; margin: 0 auto;">
+<div align="center">
+<h1 style="color:#875A7B;">Bureaucrat Helpdesk Lite</h1>
+<h3>Incident Management</h3>
+</div>
+<div align="center">
+<p><a href="https://www.odoo.com/documentation/user/12.0/legal/licenses/licenses.html#odoo-apps"><img alt="License: OPL-1" src="https://img.shields.io/badge/license-OPL--1-blue.png" /></a> <a href="https://crnd.pro/doc-bureaucrat-itsm/11.0/en/"><img alt="docs" src="https://img.shields.io/badge/docs-Generic_Request-yellowgreen.png" /></a> <a href="https://crnd.pro/doc-bureaucrat-itsm/11.0/en/Website_Service_Desk_eng"><img alt="docs" src="https://img.shields.io/badge/docs-Website_Service_Desk-yellowgreen.png" /></a> <a href="https://crnd.pro/"><img alt="CR&amp;D" src="https://img.shields.io/badge/maintainer-CR&amp;D-purple.png" /></a></p>
+<p><br></p>
+</div>
+</section>
+
+<section style="margin: 0 auto; max-width: 896px;">
+<div>
+<p>Bureaucrat Helpdesk module allows you to organize a company service desk. You can configure categories, types, stages, set up routes of requests and provide request handling.
+</p>
+<p>This bundle consists of the following modules:</p>
+<ul>
+<li>Generic Request - allows to configure and handle requests. You can read the <a href="https://crnd.pro/doc-bureaucrat-itsm/11.0/en/">Generic Request</a> module guide for more information about requests configuration.</li>
+<li>Website Service Desk - provides website interface for submiting requests by the users. Read the <a href="https://crnd.pro/doc-bureaucrat-itsm/11.0/en/Website_Service_Desk_eng/">Website Service Desk</a> module guide for more information.</li>
+</ul>
+<p><i>This bundle has a most basic set of modules. For more advanced request configuration you need to install additional modules or another bundle.</i>
+</p> 
+</div>
+<div>
+<p style="font-size: 120%;">
+<i><b>Main Features:</b></i>
+</p>
+<ul>
+<li>Custom requests types</li>
+<li>Custom request categories/subcategories</li>
+<li>Configurable stages and dynamic routes for every type of request</li>
+<li>Use different colors for each request type, category</li>
+<li>Workflow diagram</li>
+<li>Custom sequences for generating request names</li>
+<li>Customers can submit requests from your website</li>
+<li>Customers can attach documents. Images or screenshots can be attached by simply Ctrl+C => Ctrl+V</li>
+<li>Customers can check status/log of submitted requests from the website</li>
+<li>Internal chatter for User/Support communication</li>
+<li>Planning activities</li>
+<li>Requests's management using assignment to person/persons/team</li>
+<li>Reassign requests, add followers</li>
+<li>Logging requests</li>
+<li>...</li>
+</ul>
+</div>
+<div>
+<p style="font-size: 120%;">
+<i><b>The main idea:</b></i>
+</p>
+<ul>
+<li>Administrator configures request settings (categories, types, etc.).
+</li>
+<li>Users provides the necessary information about the incident step by step by selecting the categoty, type of request, and filling the required fields using the website interface.
+</li>
+<li>Submitted requests step by step follow the route defined in request type until resolved.
+</li>
+<li>On each request stage, various activities may be planned and responsible persons can be assigned.
+</li>
+<li>Request operators are always keep in touch with the users while handling the requests.
+</li>
+<li>All incidents are documented and tracked. Reports generated while managing the incidents allow defining the problem areas and create the ways for their preventing.
+</li>
+</ul>
+</div>
+<div align="center">
+<img src="bureaucrat_bundles_overview.png" alt="requests_overview" style="max-width: 100%">
+<p><br></p>
+</div>
+</section>
+
+<section style="max-width: 896px; margin: 0 auto;">
+<p style="font-size: 120%;">
+<i><b>Set up requests</b></i>
+</p>
+<div>
+<div align="center">
+<img src="request_type.gif" alt="request_type_configuration" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+
+<p style="font-size: 120%;">
+<i><b>Submitting request by the user</b></i>
+</p>
+<div>
+<div align="center">
+<img src="submit_request.gif" alt="submit_request" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+<div>
+<p style="font-size: 120%;">
+<b><i>Users can track requests on website</i></b>
+</p>
+<div align="center">
+<img src="website_service_desk_5.png" alt="request_overview_by_user" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+<div>
+<p style="font-size: 120%;">
+<b><i>Requests processing</i></b>
+</p>
+<div align="center">
+<img src="bureaucrat_bundles_handle.png" alt="requests_handle" style="max-width: 100%;">
+<p><br></p>
+</div>
+</div>
+<div>
+<p style="font-size: 120%;"><b><i>Schedule activities</i></b>
+</p>
+<div align="center">
+<img src="schedule_activity.png" alt="schedule activity" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+<div>
+<p style="font-size: 120%;"><b><i>Manage activities from the Activity View (<b>only works in Odoo version 12</b>)</i></b>
+</p>
+<div align="center">
+<img src="activity_view.png" alt="activity view" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+<div>
+<p style="font-size: 120%;">
+<b><i>Request's dynamic workflow</i></b>
+</p>
+<div align="center">
+<img src="dynamic_workflow.png" alt="dynamic_workflow" style="max-width: 100%">
+<p><br></p>
+</div>
+</div>
+</section>
+
+<section style="max-width: 896px; margin: 0 auto;">
+<p>The Bureaucrat Helpdesk Lite bundle is part of the Bureaucrat ITSM project. You can try it by the links below.</p>
+<blockquote><p><b>Note:</b> There is an Odoo bug that raises an error on the diagram view. It appears when the diagram object has 2 fields (one2many + many2one) that points to related nodes.</p>
+<p>To fix the diagram view:</p>
+<ul>
+<li>You can install the <a href="https://www.odoo.com/apps/modules/12.0/crnd_web_diagram_fix/">CRND Web Diagram Fix</a> addon</li>
+<li>Or you can apply patch from this <a href="https://github.com/odoo/odoo/pull/18975">pull request</a> manually</li>
+</ul>
+</blockquote>
+<p><br></p>
+<hr/>
+</section>
+
+<section style="max-width: 896px; margin: 0 auto;">
+    <div align="left">
+        <h4>Real examples of Service Desk / Helpdesk systems successfully implemented using Bureaucrat modules:</h4>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="https://crnd.pro"><img src="logo_crnd.png" href="https://crnd.pro" style="vertical-align: middle;"/></a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="https://odoo.com.ua"><img src="logo_odoo.png" style="vertical-align: middle;"/></a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="https://ua-admin.pro"><img src="logo_admin.png" style="vertical-align: middle;"/></a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="https://yodoo.systems"><img src="logo_yodoo.png" style="vertical-align: middle;"/></a>
+            </div>
+        </div>
+        <hr/>
+        <p><br></p>
+    </div>
+</section>
+
+<section style="max-width: 460px; margin: 0 auto;">
+<div align="center"><h3>You may be interested in our products</h3></div>
+<div class="row" align="center">
+<div class="col-sm-6 col-xs-12">
+<a href="https://www.odoo.com/apps/modules/12.0/bureaucrat_helpdesk/"><img style="margin-bottom: 10px; max-width: 230px; border-radius: 8%;" alt="Helpdesk" src="helpdesk.png"/></a>
+</div>
+<div class="col-sm-6 col-xs-12">
+<a href="https://www.odoo.com/apps/modules/12.0/bureaucrat_helpdesk_plus/"><img style="margin-bottom: 10px; max-width: 230px; border-radius: 8%;" alt="Helpdesk Plus" src="helpdesk_plus.png"/></a>	
+</div>
+<div class="col-sm-6 col-xs-12">
+<a href="https://www.odoo.com/apps/modules/12.0/bureaucrat_helpdesk_pro/"><img style="margin-bottom: 10px; max-width: 230px; border-radius: 8%;" alt="Helpdesk Pro" src="helpdesk_pro.png"/></a>
+</div>
+<div class="col-sm-6 col-xs-12">
+<a href="https://www.odoo.com/apps/modules/12.0/bureaucrat_helpdesk_ultimate/"><img style="margin-bottom: 10px; max-width: 230px; border-radius: 8%;" alt="Helpdesk Ultimate" src="helpdesk_ultimate.png"/></a>
+</div>
+</div>
+<p><br></p>
+</section>
+
+<section align="center" style="max-width: 896px; margin: 0 auto;">
+<p>See the <a href="https://crnd.pro/product-comparison" target="_blank">Products Comparison Table</a> to view the differences between our products.</p>
+</section>
+
+<section align="center" style="max-width: 896px; margin: 0 auto;">
+<div>
+<h2 style="color:#875A7B;">Launch your own ITSM system in 60 seconds:</h2>
+<p>Create your own <a href="https://yodoo.systems/saas/template/bureaucrat-itsm-demo-data-95">Bureaucrat ITSM</a> database
+<a href="https://yodoo.systems"><img alt="yodoo.systems" src="https://img.shields.io/badge/powered%20by-yodoo.systems-00a09d.png"/></a>
+</p> 
+</div>
+</section>
+
+<section align="center" style="max-width: 896px; margin: 0 auto;">
+<div>
+<h2 style="color: #138c33">Maintainer</h2>
+<a href="https://crnd.pro/"><img alt="CR&amp;D" src="https://crnd.pro/web/image/3699/300x140/crnd.png" /></a>
+<div align="center">
+<a class="btn btn-primary mb16" title="Website" href="https://crnd.pro"><i class="fa fa-globe"></i> Website</a>
+<a class="btn btn-primary mb16" title="Contact us" href="mailto:info@crnd.pro"><i class="fa fa-envelope"></i> Contact us</a>
+<a class="btn btn-primary mb16" title="Bug" href="https://crnd.pro/requests"><i class="fa fa-bug"></i> Bug</a>
+<a class="btn btn-primary mb16" title="Requests" href="https://crnd.pro/requests"><i class="fa fa-bullhorn"></i> Requests</a>
+</div>
+<div align="center">
+<a class="btn btn-primary mb16" title="Blog" href="https://crnd.pro/blog"><i class="fa fa-quote-right"></i> Blog</a>
+<a class="btn btn-primary mb16" title="Youtube Channel" href="https://www.youtube.com/channel/UCRSGFeR0NgqflPmzpDjL2tw"><i class="fa fa-youtube-play"></i> Youtube Channel</a>
+<p><br></p>
+</div>
+<p>This module is maintained by the <a href="https://crnd.pro/">Center of Research &amp; Development</a>
+company.
+</p>
+<p>
+We can provide you further Odoo Support, Odoo implementation, Odoo customization, Odoo 3rd Party development and integration software, consulting services. Our main goal is to provide the best quality product for you. 
+</p>
+</div>
+</section>

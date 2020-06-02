@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_category_demo" model="request.category">
+        <field name="name">Demo</field>
+        <field name="code">demo</field>
+        <field name="description">
+             This is category for demo requsets.
+        </field>
+    </record>
+    <record id="request_category_demo_general" model="request.category">
+        <field name="name">General</field>
+        <field name="code">demo-general</field>
+        <field name="parent_id" ref="request_category_demo"/>
+        <field name="description">
+             General requests.
+             If have no found right category for your request, use this one.
+        </field>
+    </record>
+    <record id="request_category_demo_technical" model="request.category">
+        <field name="name">Technical</field>
+        <field name="code">demo-technical</field>
+        <field name="parent_id" ref="request_category_demo"/>
+        <field name="description">Technical requests goes here</field>
+    </record>
+    <record id="request_category_demo_support" model="request.category">
+        <field name="name">Support</field>
+        <field name="code">demo-support</field>
+        <field name="parent_id" ref="request_category_demo"/>
+        <field name="description">Here is right place for support requests</field>
+    </record>
+    <record id="request_category_demo_resource" model="request.category">
+        <field name="name">Resource</field>
+        <field name="code">demo-resource</field>
+        <field name="parent_id" ref="request_category_demo"/>
+        <field name="description">Resource related requests</field>
+        <field name="help_html"><![CDATA[
+            Use this category for requests related to resources
+        ]]></field>
+    </record>
+    <record id="request_category_demo_technical_configuration"
+            model="request.category">
+        <field name="name">Configuration</field>
+        <field name="code">demo-technical-configuration</field>
+        <field name="parent_id" ref="request_category_demo_technical"/>
+        <field name="description">Configuration related requests</field>
+    </record>
+    <record id="request_category_demo_technical_security"
+            model="request.category">
+        <field name="name">Security</field>
+        <field name="code">demo-technical-security</field>
+        <field name="parent_id" ref="request_category_demo_technical"/>
+        <field name="description">Security related requests</field>
+    </record>
+</odoo>

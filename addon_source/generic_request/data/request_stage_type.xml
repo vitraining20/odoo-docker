@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="request_stage_type_draft" model="request.stage.type">
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="bg_color">rgba(85, 170, 255, 1)</field>
+        <field name="label_color">rgba(255, 255, 255, 1)</field>
+    </record>
+    <record id="request_stage_type_sent" model="request.stage.type">
+        <field name="name">Sent</field>
+        <field name="code">sent</field>
+        <field name="bg_color">rgba(10, 78, 196, 1)</field>
+        <field name="label_color">rgba(255, 255, 255, 1)</field>
+    </record>
+    <record id="request_stage_type_cancel" model="request.stage.type">
+        <field name="name">Cancel</field>
+        <field name="code">cancel</field>
+        <field name="bg_color">rgba(120, 120, 120, 1)</field>
+        <field name="label_color">rgba(255, 255, 255, 1)</field>
+    </record>
+    <record id="request_stage_type_closed_ok" model="request.stage.type">
+        <field name="name">Closed (OK)</field>
+        <field name="code">closed-ok</field>
+        <field name="bg_color">rgba(68, 170, 85, 1)</field>
+        <field name="label_color">rgba(255, 255, 255, 1)</field>
+    </record>
+    <record id="request_stage_type_closed_fail" model="request.stage.type">
+        <field name="name">Closed (Fail)</field>
+        <field name="code">closed-fail</field>
+        <field name="bg_color">rgba(170, 68, 85, 1)</field>
+        <field name="label_color">rgba(17, 17, 17, 1)</field>
+    </record>
+    <record id="request_stage_type_pause" model="request.stage.type">
+        <field name="name">Pause</field>
+        <field name="code">pause</field>
+        <field name="bg_color">rgba(120, 120, 120, 1)</field>
+        <field name="label_color">rgba(255, 255, 255, 1)</field>
+    </record>
+</odoo>

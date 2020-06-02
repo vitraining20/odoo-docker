@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="base.module_category_service_desk">
+        <field name="name">Service Desk</field>
+        <field name="sequence">10</field>
+        <field name="visible" eval="1" />
+    </record>
+</odoo>

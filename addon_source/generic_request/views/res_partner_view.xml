@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="partner_kanban_view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="groups_id"
+               eval="[(4, ref('generic_request.group_request_user'))]"/>
+        <field name="arch" type="xml">
+            <field name="mobile" position="after">
+                <field name="request_count"/>
+            </field>
+            <xpath expr="//div[hasclass('oe_kanban_partner_links')]" position="inside">
+                <span t-if="record.request_count.value>0"
+                      title="Requests"
+                      class="badge">
+                          <i class="fa fa-fw fa-comments-o"/>
+                          <t t-esc="record.request_count.value"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_partner_view_buttons" model="ir.ui.view">
+        <field name="name">res.partner.view.request.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="groups_id"
+               eval="[(4, ref('generic_request.group_request_user'))]"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        name="action_show_related_requests"
+                        groups="generic_request.group_request_user"
+                        icon="fa-comments-o">
+                    <field string="Requests" name="request_count"
+                           widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

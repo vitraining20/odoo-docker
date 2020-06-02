@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="request_wizard_close_form_view" model="ir.ui.view">
+        <field name="name">request.wizard.close.form</field>
+        <field name="model">request.wizard.close</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="request_id" invisible="1"/>
+                <field name="require_response" invisible="1"/>
+                <sheet>
+                    <field name="close_route_id"
+                           context="{'name_only': True}" options="{'no_create': True, 'no_quick_create': True}"/>
+                    <notebook>
+                        <page string="Response" name="response">
+                            <field name="response_text"
+                                   attrs="{'required': [('require_response', '=', True)]}"
+                                   colspan="4"
+                                   placeholder="Response..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Close" name="action_close_request"
+                            class="btn-primary" type="object"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

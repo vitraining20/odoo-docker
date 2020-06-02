@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_type_access" model="request.type">
+        <field name="name">Grant access</field>
+        <field name="code">grant-access</field>
+        <field name="help_html"><![CDATA[
+             If you have some troubles with access (see access denied errors, etc)
+             then use this request type
+        ]]></field>
+        <field name="default_request_text"><![CDATA[
+            Here must be default request text...
+        ]]></field>
+        <field name="category_ids"
+               eval="[(6, 0, [ref('generic_request.request_category_demo_technical_configuration')])]"/>
+        <field name="kind_id" ref="request_kind_demo"/>
+    </record>
+
+    <!-- access request type stages -->
+    <record id="request_stage_type_access_new" model="request.stage">
+        <field name="sequence" eval="1"/>
+        <field name="name">New</field>
+        <field name="code">new</field>
+        <field name="type_id" ref="request_stage_type_draft"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+    <record id="request_stage_type_access_sent" model="request.stage">
+        <field name="sequence" eval="2"/>
+        <field name="name">Sent</field>
+        <field name="code">sent</field>
+        <field name="type_id" ref="request_stage_type_sent"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+    <record id="request_stage_type_access_granted" model="request.stage">
+        <field name="sequence" eval="3"/>
+        <field name="name">Granted</field>
+        <field name="code">granted</field>
+        <field name="type_id" ref="request_stage_type_closed_ok"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+    <record id="request_stage_type_access_rejected" model="request.stage">
+        <field name="sequence" eval="4"/>
+        <field name="name">Rejected</field>
+        <field name="code">rejected</field>
+        <field name="type_id" ref="request_stage_type_closed_fail"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+
+    <!-- access request type routes -->
+    <record id="request_stage_route_type_access_new_to_sent"
+            model="request.stage.route">
+        <field name="name">Send</field>
+        <field name="stage_from_id" ref="request_stage_type_access_new"/>
+        <field name="stage_to_id" ref="request_stage_type_access_sent"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+    <record id="request_stage_route_type_access_sent_to_granted"
+            model="request.stage.route">
+        <field name="name">Grant</field>
+        <field name="stage_from_id" ref="request_stage_type_access_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_access_granted"/>
+        <field name="request_type_id" ref="request_type_access"/>
+    </record>
+    <record id="request_stage_route_type_access_sent_to_rejected"
+            model="request.stage.route">
+        <field name="name">Reject</field>
+        <field name="stage_from_id" ref="request_stage_type_access_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_access_rejected"/>
+        <field name="request_type_id" ref="request_type_access"/>
+        <field name="require_response" eval="True"/>
+        <field name="default_response_text"><![CDATA[
+            Here must be default response text...
+        ]]></field>
+    </record>
+
+    <!-- Request Request -->
+    <record id="request_request_type_access_demo_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>ERP: Sale order creation access request</h1>
+            <p>Please give me access to create sale orders in out ERP</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_access"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="category_id" ref="request_category_demo_technical_configuration"/>
+        <field name="user_id" ref="base.user_demo"/>
+    </record>
+</odoo>

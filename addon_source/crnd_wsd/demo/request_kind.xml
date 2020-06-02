@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_kind_demo_wsd" model="request.kind">
+        <field name="name">Demo WSD</field>
+        <field name="code">DWSD</field>
+        <field name="description">Demo website service desk requests</field>
+        <field name="show_as_website_filter" eval="True"/>
+        <field name="website_filter_name">WSD</field>
+    </record>
+
+    <record id="generic_request.request_kind_demo" model="request.kind">
+        <field name="website_filter_name">Demo</field>
+        <field name="show_as_website_filter" eval="True"/>
+    </record>
+</odoo>
+

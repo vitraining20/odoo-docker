@@ -1,0 +1,113 @@
+.o_request_kanban {
+    min-width: 48% !important;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .o_request_kanban_header {
+        display: flex;
+        flex-flow: row nowrap;
+        margin: -@default_padding -@default_padding 0 -@default_padding;
+        padding-left: @default_padding;
+        min-height: 3em;
+
+        > * {
+            margin: 0 @default_margin;
+
+            &:first-child {
+                margin: 0;
+            }
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+
+        .o_header_title_box {
+            padding: @default_padding 0;
+
+            .o_header_box_item {
+                display: inline-block;
+                float: none;
+            }
+
+            .o_header_title {
+                font-size: larger;
+                font-weight: bolder;
+                color: @odoo-brand-optional;
+            }
+        }
+
+        .o_header_icons_info {
+            align-self: center;
+
+            .icon {
+                display: inline-flex;
+                align-items: center;
+                margin-right: @default_margin;
+            }
+        }
+
+        .o_header_stage {
+            display: flex;
+            flex-flow: column nowrap;
+            margin-left: auto !important;
+            font-weight: bold;
+            justify-content: center;
+            padding: 0 @default_padding !important;
+        }
+    }
+
+    .o_request_kanban_content {
+        .o_request_kanban_row {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            padding: @default_padding/2 0;
+            min-height: 3em;
+            border-bottom: 1px solid gainsboro;
+
+            &:last-of-type {
+                border-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .o_pull_right {
+                margin-left: auto;
+            }
+
+            .o_partner_icon {
+                width: 64px;
+                height: 64px;
+                min-width: 64px;
+
+                img {
+                    width: 64px;
+                    height: 64px;
+                }
+            }
+        }
+
+        .o_request_kanban_dates {
+            .o_date {
+                width: 33%;
+                margin: auto;
+                margin-right: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                .oe_kanban_image {
+                    max-width: 30px;
+                    float: left;
+                    margin: @default_margin @default_margin 0 0;
+                }
+
+                .oe_kanban_hidden_text {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

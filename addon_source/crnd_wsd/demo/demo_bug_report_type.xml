@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_type_bug_report" model="request.type">
+        <field name="name">Bug Report</field>
+        <field name="code">saas_bug_report</field>
+        <field name="description">Report a bug</field>
+        <field name="category_ids" eval="[(4, ref('request_category_demo_website_support'), 0)]"/>
+        <field name="website_published" eval="True"/>
+    </record>
+
+    <!-- Generic request type stages -->
+    <record id="request_stage_type_bug_report_draft" model="request.stage">
+        <field name="sequence" eval="1"/>
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="description">Request is in stage Draft</field>
+        <field name="request_type_id" ref="request_type_bug_report"/>
+    </record>
+    <record id="request_stage_type_bug_report_sent" model="request.stage">
+        <field name="sequence" eval="2"/>
+        <field name="name">Sent</field>
+        <field name="code">send</field>
+        <field name="description">Request is in stage Sent</field>
+        <field name="request_type_id" ref="request_type_bug_report"/>
+    </record>
+    <record id="request_stage_type_bug_report_closed" model="request.stage">
+        <field name="sequence" eval="3"/>
+        <field name="name">Closed</field>
+        <field name="code">closed</field>
+        <field name="description">Request is closed</field>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_bug_report"/>
+    </record>
+
+    <!-- Generic request type routes -->
+    <record id="request_stage_route_type_bug_report_draft_to_sent"
+            model="request.stage.route">
+        <field name="name">Send</field>
+        <field name="stage_from_id" ref="request_stage_type_bug_report_draft"/>
+        <field name="stage_to_id" ref="request_stage_type_bug_report_sent"/>
+        <field name="request_type_id" ref="request_type_bug_report"/>
+        <field name="website_published" eval="True"/>
+    </record>
+    <record id="request_stage_route_type_bug_report_sent_to_closed"
+            model="request.stage.route">
+        <field name="name">Close</field>
+        <field name="stage_from_id" ref="request_stage_type_bug_report_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_bug_report_closed"/>
+        <field name="request_type_id" ref="request_type_bug_report"/>
+    </record>
+
+    <record id="demo_request_request_bug_report_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>Cannot process warehouse transfer!</h1>
+            <p>AccessDenied error shown.</p>
+            <hr/>
+            <p>Please, fix it as fast as possible!</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_bug_report"/>
+        <field name="created_by_id" ref="user_demo_service_desk_website"/>
+        <field name="create_uid" ref="user_demo_service_desk_website"/>
+    </record>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Requests menu structure -->
+    <menuitem name="Requests"
+              id="menu_request_root"
+              web_icon="generic_request,static/description/icon.png"/>
+
+    <menuitem name="Requests"
+              id="menu_request"
+              parent="menu_request_root"
+              sequence="20"/>
+
+    <menuitem name="Reports"
+              id="menu_request_report"
+              parent="menu_request_root"
+              groups="group_request_manager"
+              sequence="40"/>
+
+    <menuitem name="Configuration"
+              id="menu_configuration"
+              parent="menu_request_root"
+              groups="group_request_manager"
+              sequence="60"/>
+
+    <menuitem name="Requests"
+              id="menu_configuration_requests"
+              parent="menu_configuration"
+              sequence="20"/>
+
+</odoo>

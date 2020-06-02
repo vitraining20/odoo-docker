@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_category_demo_website" model="request.category">
+        <field name="name">SaAS</field>
+        <field name="code">saas</field>
+        <field name="description">
+            SaAS related requests
+        </field>
+        <field name="website_published" eval="True"/>
+    </record>
+
+    <record id="request_category_demo_website_tech" model="request.category">
+        <field name="name">Technical</field>
+        <field name="code">saas-technical</field>
+        <field name="description">
+            Technical requests
+        </field>
+        <field name="website_published" eval="True"/>
+        <field name="parent_id" ref="request_category_demo_website"/>
+    </record>
+
+    <record id="request_category_demo_website_support" model="request.category">
+        <field name="name">Support</field>
+        <field name="code">saas-support</field>
+        <field name="description">Website support related requests</field>
+        <field name="website_published" eval="True"/>
+        <field name="parent_id" ref="request_category_demo_website"/>
+        <field name="request_type_ids"
+               eval="[(4, ref('crnd_service_desk.request_type_incident'))]"/>
+    </record>
+</odoo>

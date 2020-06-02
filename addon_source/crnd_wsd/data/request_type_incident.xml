@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Request Type incident-->
+    <function model="request.type"
+              name="write">
+        <function model="request.type"
+                  name="search"
+                  eval="[[('id', '=', ref('crnd_service_desk.request_type_incident', False))]]"/>
+        <value eval="{'website_published': True}"/>
+    </function>
+</odoo>

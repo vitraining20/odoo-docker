@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_request_kind_tree">
+        <field name="model">request.kind</field>
+        <field name="inherit_id" ref="generic_request.view_request_kind_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="website_filter_name"/>
+                <field name="show_as_website_filter"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_kind_form">
+        <field name="model">request.kind</field>
+        <field name="inherit_id" ref="generic_request.view_request_kind_form"/>
+        <field name="arch" type="xml">
+            <group name="group_left" position="inside">
+                <field name="website_filter_name"/>
+                <field name="show_as_website_filter"/>
+            </group>
+        </field>
+    </record>
+</odoo>
+

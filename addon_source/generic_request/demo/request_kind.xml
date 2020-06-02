@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_kind_demo" model="request.kind">
+        <field name="name">Demo Request</field>
+        <field name="code">demo-request</field>
+        <field name="description">Demo requests</field>
+    </record>
+</odoo>

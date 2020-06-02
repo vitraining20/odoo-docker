@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Request Type simple-->
+    <!-- Simple request type with simple stage routes:
+            - draft -> sent -> confirm
+            - draft -> sent -> reject
+    -->
+    <record id="request_type_simple" model="request.type">
+        <field name="name">Simple Request</field>
+        <field name="code">simple</field>
+        <field name="color">rgba(185,240,190,1)</field>
+        <field name="help_html"><![CDATA[
+            This is simple request type with simple routes:
+            <ul>
+                <li>draft -> sent -> confirmed</li>
+                <li>draft -> sent -> rejected</li>
+            </ul>
+        ]]></field>
+        <field name="category_ids"
+               eval="[(6, 0, [ref('generic_request.request_category_demo_general')])]"/>
+        <field name="kind_id" ref="request_kind_demo"/>
+    </record>
+
+    <!-- Simple request type stages -->
+    <record id="request_stage_type_simple_draft" model="request.stage">
+        <field name="sequence" eval="1"/>
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="type_id" ref="request_stage_type_draft"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="help_html"><![CDATA[
+            Now request is in <i>Draft</i> state.<br/>
+            Please click 'Sent' stage on status bar (right-top corner)
+            to send it to our team.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_simple_sent" model="request.stage">
+        <field name="sequence" eval="2"/>
+        <field name="name">Sent</field>
+        <field name="code">sent</field>
+        <field name="type_id" ref="request_stage_type_sent"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="help_html"><![CDATA[
+            The request is sent and awaits a response
+            from a technical specialist.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_simple_confirmed" model="request.stage">
+        <field name="sequence" eval="3"/>
+        <field name="name">Confirmed</field>
+        <field name="code">confirmed</field>
+        <field name="type_id" ref="request_stage_type_closed_ok"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="help_html"><![CDATA[
+            Request is confirmed!
+            If you have any questions, then create new request.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_simple_rejected" model="request.stage">
+        <field name="sequence" eval="4"/>
+        <field name="name">Rejected</field>
+        <field name="code">rejected</field>
+        <field name="type_id" ref="request_stage_type_closed_fail"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="help_html"><![CDATA[
+            Request is rejected!
+            If you do not agree with this,
+            then move this request to draft stage.
+        ]]></field>
+    </record>
+
+    <!-- Simple request type routes -->
+    <record id="request_stage_route_type_simple_draft_to_sent"
+            model="request.stage.route">
+        <field name="name">Send</field>
+        <field name="stage_from_id" ref="request_stage_type_simple_draft"/>
+        <field name="stage_to_id" ref="request_stage_type_simple_sent"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+    </record>
+    <record id="request_stage_route_type_simple_sent_confirmed"
+            model="request.stage.route">
+        <field name="name">Confirm</field>
+        <field name="stage_from_id" ref="request_stage_type_simple_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_simple_confirmed"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="allowed_group_ids"
+                eval="[(6, 0, [ref('generic_request.group_request_manager')])]"/>
+    </record>
+    <record id="request_stage_route_type_simple_sent_rejected"
+            model="request.stage.route">
+        <field name="name">Reject</field>
+        <field name="stage_from_id" ref="request_stage_type_simple_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_simple_rejected"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+        <field name="require_response" eval="True"/>
+        <field name="allowed_user_ids"
+                eval="[(6, 0, [ref('generic_request.user_demo_request_manager_2')])]"/>
+    </record>
+    <record id="request_stage_route_type_simple_rejected_draft"
+            model="request.stage.route">
+        <field name="name">Reopen</field>
+        <field name="stage_from_id" ref="request_stage_type_simple_rejected"/>
+        <field name="stage_to_id" ref="request_stage_type_simple_draft"/>
+        <field name="request_type_id" ref="request_type_simple"/>
+    </record>
+
+    <!-- Request Request -->
+    <record id="request_request_type_simple_demo_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>AccessError on sale order creation</h1>
+
+            <p>I can't create sale order.
+            It shows me AccessDenied error.</p>
+
+            <p>Please, help me!</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_simple"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="category_id" ref="request_category_demo_general"/>
+    </record>
+
+    <record id="request_request_type_simple_demo_long_text_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>Example of request with very long description</h1>
+
+            <p>Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+            </p>
+
+            <p>Example of image in request</p>
+            <p><img src="/generic_request/static/demo/dynamic_workflow.png"/></p>
+
+            <p>Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+            </p>
+
+            <p>One more image in request</p>
+            <p><img src="/generic_request/static/demo/activity_view.png"/></p>
+
+            <p>Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               <b>Just a paragraph with long descriiption of request.</b>
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+               Just a paragraph with long descriiption of request.
+            </p>
+
+            <p>Please, help me!</p>
+        ]]></field>
+        <field name="type_id" ref="request_type_simple"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="category_id" ref="request_category_demo_general"/>
+        <field name="user_id" ref="base.demo_user0"/>
+    </record>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="request_event_view_search" model="ir.ui.view">
+        <field name="model">request.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="request_id"/>
+                <field name="event_type_id"/>
+                <field name="user_id"/>
+
+                <group name="group_group_by" expand="0" string="Group by...">
+                    <filter name="filter_group_by_event_type"
+                            string="Type"
+                            context="{'group_by': 'event_type_id'}"/>
+                    <filter name="filter_group_by_request"
+                            string="Request"
+                            context="{'group_by': 'request_id'}"/>
+                    <filter name="filter_group_by_user_id"
+                            string="User"
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="request_event_view_tree" model="ir.ui.view">
+        <field name="model">request.event</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="date"/>
+                <field name="event_type_id"/>
+                <field name="request_id"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="request_event_view_form" model="ir.ui.view">
+        <field name="model">request.event</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <field name="event_code" invisible="1"/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <group>
+                        <group name="group_left">
+                            <field name="date"/>
+                            <field name="event_type_id"
+                                   options="{'no_open': True}"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="request_id"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <group name="group_event_data"
+                           string="Event Data">
+                        <group name="group_event_data_assign"
+                               attrs="{'invisible': [('event_code', 'not in', ('assigned', 'reassigned', 'unassigned'))]}"
+                               colspan="4">
+                            <field name="old_user_id"/>
+                            <field name="new_user_id"/>
+                        </group>
+                        <group name="group_event_data_changed"
+                               attrs="{'invisible': [('event_code', '!=', 'changed')]}"
+                               colspan="4">
+                            <label for="old_text" colspan="4"/>
+                            <field name="old_text" colspan="4" nolabel="1"/>
+                            <label for="new_text" colspan="4"/>
+                            <field name="new_text" colspan="4" nolabel="1"/>
+                        </group>
+                        <group name="group_event_data_stage_change"
+                               attrs="{'invisible': [('event_code', 'not in', ('closed', 'reopened', 'stage-changed'))]}"
+                               colspan="4">
+                            <group>
+                                <field name="old_stage_id"/>
+                                <field name="new_stage_id"/>
+                            </group>
+                            <group>
+                                <field name="route_id"/>
+                            </group>
+                        </group>
+                        <group name="group_event_data_category_change"
+                               attrs="{'invisible': [('event_code', '!=', 'category-changed')]}"
+                               colspan="4">
+                            <group>
+                                <field name="old_category_id"/>
+                            </group>
+                            <group>
+                                <field name="new_category_id"/>
+                            </group>
+                        </group>
+                        <group name="group_event_data_priority"
+                                attrs="{'invisible': [('event_code', '!=', 'priority-changed')]}"
+                                colspan="4">
+                                <group>
+                                    <field name="old_priority" colspan="4"/>
+                                    <field name="new_priority" colspan="4"/>
+                                </group>
+                        </group>
+                       <group name="group_event_data_impact"
+                                attrs="{'invisible': [('event_code', '!=', 'impact-changed')]}"
+                                colspan="4">
+                                <group>
+                                    <field name="old_impact" colspan="4"/>
+                                    <field name="new_impact" colspan="4"/>
+                                </group>
+                        </group>
+                       <group name="group_event_data_urgency"
+                                attrs="{'invisible': [('event_code', '!=', 'urgency-changed')]}"
+                                colspan="4">
+                                <group>
+                                    <field name="old_urgency" colspan="4"/>
+                                    <field name="new_urgency" colspan="4"/>
+                                </group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_request_event_view" model="ir.actions.act_window">
+        <field name="name">Request Event</field>
+        <field name="res_model">request.event</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

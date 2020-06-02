@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Sequences for sale.order -->
+    <record id="seq_request_request_name" model="ir.sequence">
+        <field name="name">Default Request Name Seq</field>
+        <field name="code">request.request.name</field>
+        <field name="prefix">Req-%(month)s%(year)s-</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

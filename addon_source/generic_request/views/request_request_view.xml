@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_request_wizard_close" model="ir.actions.act_window">
+        <field name="name">Close</field>
+        <field name="res_model">request.wizard.close</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_request_id': active_id, 'name_only': True}</field>
+    </record>
+    <record model="ir.ui.view" id="view_request_request_form">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="id" invisible="1"/>
+                <field name="closed" invisible="1"/>
+                <field name="can_be_closed" invisible="1"/>
+                <field name="is_new_request" invisible="1"/>
+                <field name="can_change_assignee" invisible="1"/>
+                <field name="can_change_request_text" invisible="1"/>
+                <field name="can_change_author" invisible="1"/>
+                <field name="can_change_category" invisible="1"/>
+                <field name="next_stage_ids" invisible="1"/>
+                <header>
+                    <button name="%(action_request_wizard_close)d"
+                            type="action" string="Close"
+                            attrs="{'invisible': ['|',( 'can_be_closed', '=', False), ('id', '=', False)]}"
+                            class="oe_highlight"/>
+                    <field name="stage_id" widget="statusbar" clickable="True"
+                           required="0"
+                           attrs="{'invisible' : [('id', '=', False)]}"
+                           domain="[('id', 'in', next_stage_ids)]"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div name="title" class="oe_title request_title">
+                        <div style=" display: flex; align-items: center;">
+                            <div class="mr16" attrs="{'invisible': [('is_priority_complex', '=', False)]}">
+                                <div>
+                                    <span class="field-icon fa fa-star-half-empty oe_inline"
+                                        title="Impact"
+                                        aria-label="Impact"
+                                        style="margin-right: 12px;"/>
+                                    <field name="impact" widget="priority" class="mb0"/>
+                                </div>
+                                <div>
+                                    <span class="field-icon fa fa-clock-o oe_inline"
+                                        title="Urgency"
+                                        aria-label="Urgency"
+                                        style="margin-right: 12px;"/>
+                                    <field name="urgency" widget="priority"/>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="fa fa-arrow-right mr16" attrs="{'invisible': [('is_priority_complex', '=', False)]}"/>
+                                <field name="is_priority_complex" invisible="1"/>
+                                <field name="priority"
+                                    widget="priority"
+                                    attrs="{'readonly': [('is_priority_complex', '=', True)]}"
+                                />
+                            </div>
+                        </div>
+                        <h2 name="header_name">
+                            <field name="name"/>
+                        </h2>
+
+                        <h3 name="header_category">
+                            <span class="field-with-icon">
+                                <span class="field-icon fa fa-bars oe_inline"
+                                      title="Category"
+                                      aria-label="Category"/>
+                                <field name="category_id" placeholder="Category..."
+                                       domain="['|', (is_new_request, '=', 1), ('request_type_ids', '=', type_id)]"
+                                       attrs="{'readonly': [('id', '!=', False), ('can_change_category', '=', False)]}"
+                                       options="{'no_create': true, 'no_quick_create': true}"
+                                       class="oe_inline"/>
+                            </span>
+                        </h3>
+                        <h3 name="header_type">
+                            <span class="field-with-icon">
+                                <span class="field-icon fa fa-hashtag oe_inline"
+                                      title="Type"
+                                      aria-label="Type"/>
+                                <field name="type_id" placeholder="Type..."
+                                       domain="[('start_stage_id', '!=', False), ('category_ids', '=', category_id)]"
+                                       attrs="{'readonly': [('id', '!=', False)]}"
+                                       options="{'no_create': true, 'no_quick_create': true}"
+                                       class="oe_inline"/>
+                            </span>
+                        </h3>
+                        <h3 name="header_kind">
+                            <span class="field-with-icon" attrs="{'invisible': [('kind_id', '=', False)]}">
+                                <span class="field-icon fa fa-square oe_inline"
+                                    title="Kind"
+                                    aria-label="Kind"/>
+                                <field name="kind_id" placeholder="Kind..."
+                                    options="{'no_create': true, 'no_quick_create': true}"
+                                    class="oe_inline"/>
+                            </span>
+                        </h3>
+
+                    </div>
+                    <notebook>
+                        <page string="Request" name="page_request">
+                            <field name="note_html" attrs="{'invisible': ['|', ('note_html', '=', False), ('id', '!=', False)]}"/>
+                            <div class="request-separator request-separator-info"
+                                 attrs="{'invisible': ['|', ('note_html', '=', False), ('id', '!=', False)]}">
+                                <span class="request-separator-text">Info</span>
+                            </div>
+                            <group name="group_author" class="mb0">
+                                <group class="mb0 mt0">
+                                   <field name="author_id" placeholder="Author..."
+                                          attrs="{'readonly': [('can_change_author', '=', False)]}"
+                                          options="{'no_create': true, 'no_quick_create': true}"/>
+                                </group>
+                                <group class="mb0 mt0">
+                                   <field name="partner_id" placeholder="Related partner..."
+                                          options="{'no_create': true, 'no_quick_create': true}"/>
+                                </group>
+                            </group>
+                            <div class="request-separator">
+                                <span class="request-separator-text">Request</span>
+                            </div>
+                            <field name="request_text"
+                                   colspan="4"
+                                   widget="request_html"
+                                   attrs="{'readonly': ['&amp;', ('id', '!=', False), '|', ('closed', '=', True), ('can_change_request_text', '=', False)]}"/>
+                            <div class="request-separator"
+                                 attrs="{'invisible': [('response_text', '=', False)]}">
+                                <span class="request-separator-text">Response</span>
+                            </div>
+                            <field name="response_text"
+                                   colspan="4"
+                                   readonly="1"
+                                   widget="request_html"
+                                   attrs="{'invisible': [('response_text', '=', False)]}"/>
+                        </page>
+                        <page string="Help" name="page_help"
+                              attrs="{'invisible': [('help_html', '=', False),
+                                                    ('stage_help_html', '=', False),
+                                                    ('category_help_html', '=', False)]}">
+                            <separator string="Stage" colspan="4" attrs="{'invisible': [('stage_help_html', '=', False)]}"/>
+                            <field colspan="4" name="stage_help_html" attrs="{'invisible': [('stage_help_html', '=', False)]}"/>
+                            <separator string="Category" colspan="4" attrs="{'invisible': [('category_help_html', '=', False)]}"/>
+                            <field colspan="4" name="category_help_html" attrs="{'invisible': [('category_help_html', '=', False)]}"/>
+                            <separator string="Type" colspan="4" attrs="{'invisible': [('help_html', '=', False)]}"/>
+                            <field colspan="4" name="help_html" attrs="{'invisible': [('help_html', '=', False)]}"/>
+                        </page>
+                        <page string="Instruction"
+                              name="page_instruction"
+                              attrs="{'invisible': [('instruction_visible', '=', False)]}">
+                            <field name="instruction_visible" invisible="1"/>
+                            <field colspan="4" name="instruction_html"/>
+                        </page>
+                        <page string="Other" name="page_other">
+                            <group>
+                                <group name="group_info_left"/>
+                                <group name="group_info_right"/>
+                            </group>
+                        </page>
+                        <page string="Technical"
+                              name="page_technical"
+                              groups="base.group_no_one">
+                            <group>
+                                <group name="group_tech_links" col="1">
+                                    <button name="action_show_request_events"
+                                            type="object"
+                                            class="oe_link"
+                                            icon="fa-bell"
+                                            groups="generic_request.group_request_manager">
+                                        <field name="request_event_count"
+                                            widget="statinfo"
+                                            string="Request Events"/>
+                                    </button>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <div class="row mt8">
+                        <div class="col-md-3">
+                            <div><label for="date_created" string="Created"/></div>
+                            <div><field name="date_created"/></div>
+                            <div><field name="created_by_id"/></div>
+                        </div>
+                        <div class="col-md-3"
+                             attrs="{'invisible': [('date_moved', '=', False)]}">
+                            <div><label for="date_moved" string="Moved"/></div>
+                            <div><field name="date_moved"/></div>
+                            <div><field name="moved_by_id"/></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <span attrs="{'invisible': [('user_id', '=', False)]}">
+                                    <label for="date_assigned" string="Assigned"/>
+                                </span>
+                                <span name="request_assign_button"
+                                      attrs="{'invisible':
+                                      ['|', '|', '|',
+                                       ('closed', '=', True),
+                                       ('can_change_assignee', '=', False),
+                                       ('user_id', '!=', False),
+                                       ('id', '=', False)]}">
+                                    <button name="action_request_assign"
+                                            type="object"
+                                            string="Assign"
+                                            class="oe_link"
+                                            style="padding: 0px 0px;"/></span>
+                                <span name="request_reassign_button"
+                                      attrs="{'invisible':
+                                      ['|',
+                                       ('can_change_assignee', '=', False),
+                                       ('user_id', '=', False)]}">
+                                    <button name="action_request_assign"
+                                            type="object"
+                                            string="Reassign"
+                                            class="oe_link"
+                                            style="padding: 0px 0px;"/></span>
+                            </div>
+                            <div attrs="{'invisible': [('user_id', '!=', False)]}">
+                                <button name="action_request_assign_to_me"
+                                        type="object"
+                                        attrs="{'invisible':
+                                            ['|', '|', '|',
+                                            ('closed', '=', True),
+                                            ('can_change_assignee', '=', False),
+                                            ('user_id', '!=', False),
+                                            ('id', '=', False)]}"
+                                        string="Assign to me"
+                                        class="oe_link"
+                                        style="padding: 0px 0px;"/>
+                            </div>
+                            <div><field name="date_assigned"/></div>
+                            <div><field name="user_id"
+                                        attrs="{'invisible': [('user_id', '=', False)],
+                                                'readonly': ['|', ('closed', '=', True), ('can_change_assignee', '=', False)]}"/></div>
+                        </div>
+                        <div class="col-md-3"
+                             attrs="{'invisible': [('date_closed', '=', False)]}">
+                            <div><label for="date_closed" string="Closed"/></div>
+                            <div><field name="date_closed"/></div>
+                            <div><field name="closed_by_id"/></div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_request_tree">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="message_needaction==True">
+                <field name="message_needaction" invisible="1"/>
+                <field name="is_priority_complex" invisible='1'/>
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="category_id"/>
+                <field name="author_id"/>
+                <field name="user_id"/>
+                <field name="request_text_sample" string="Description"
+                       widget="dynamic_popover_text"
+                       options="{'max_width': '350px', 'line_clamp': '3'}"/>
+                <field name="date_created"/>
+                <field name="date_assigned"/>
+                <field name="date_closed"/>
+                <field name="stage_id"/>
+                <field name="priority"
+                       widget="priority"
+                       attrs="{'readonly': [('is_priority_complex', '=', True)]}"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_request_kanban">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <kanban edit="false" delete="false" group_create="false" quick_create="false" group_edit="false" group_delete="false">
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="type_color"/>
+                <field name="kind_id"/>
+                <field name="category_id"/>
+                <field name="created_by_id"/>
+                <field name="user_id"/>
+                <field name="date_created"/>
+                <field name="date_assigned"/>
+                <field name="date_closed"/>
+                <field name="closed_by_id"/>
+                <field name="closed"/>
+                <field name="stage_id"/>
+                <field name="stage_bg_color"/>
+                <field name="stage_label_color"/>
+                <field name="request_text_sample"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <field name="partner_id"/>
+                <field name="author_id"/>
+
+                <field name="message_follower_ids"/>
+                <field name="message_discussion_ids"/>
+                <field name="message_needaction"/>
+                <field name="message_needaction_counter"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_request_kanban" t-att-style="record.closed.raw_value ? 'background-color:rgba(242,242,242,1)' : 'rgba(255,255,255,1)'">
+                            <div t-attf-style="background-color: {{record.type_color.raw_value}}" name="header" class="o_request_kanban_header">
+                                <div name="title_box" class="o_header_title_box">
+                                    <div name="title" class="o_header_title o_header_box_item">
+                                        <span><field name="name"/></span>
+                                    </div>
+                                    <div class="o_header_title o_header_box_item">
+                                        <span><field name="activity_ids" widget="kanban_activity"/></span>
+                                    </div>
+                                    <div class="o_header_box_item">
+                                        <field name="is_priority_complex" invisible='True'/>
+                                        <field name="priority"
+                                               widget="priority"
+                                               attrs="{'readonly': [('is_priority_complex', '=', True)]}"
+                                        />
+                                    </div>
+                                </div>
+                                <div name="icons_info" class="o_header_icons_info">
+                                    <span t-if="record.message_needaction.raw_value"
+                                          class="icon">
+                                        <span title='Messages' class='fa fa-comments mr4'></span>
+                                        <span style="font-weight: bold"
+                                              title="You have unread messages related to this request.">
+                                             <t t-esc="record.message_needaction_counter.raw_value"/>
+                                        </span>
+                                    </span>
+                                    <span t-if="record.message_follower_ids.raw_value" class="icon">
+                                        <span title='Followers' class='fa fa-users mr4'></span>
+                                        <t t-esc="record.message_follower_ids.raw_value.length"/>
+                                    </span>
+                                </div>
+                                <div class="o_header_stage" t-attf-style="background-color: {{record.stage_bg_color.raw_value}}">
+                                    <span t-attf-style="color: {{record.stage_label_color.raw_value}}"><field name="stage_id"/></span>
+                                </div>
+                            </div>
+                            <div class="o_request_kanban_content">
+                                <div class="o_request_kanban_info o_request_kanban_row">
+                                    <div name="type_category">
+                                        <div>
+                                            <span class="text-muted" title="Category">
+                                                <span class="fa fa-bars mr4"/>
+                                                <t t-if="record.category_id.raw_value">
+                                                    <field name="category_id"/>
+                                                </t>
+                                                <t t-if="!record.category_id.raw_value">
+                                                    <span>Undefined</span>
+                                                </t>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="text-muted" title="Type">
+                                                <span class="fa fa-hashtag mr4"/>
+                                                <field name="type_id"/>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="text-muted" title="Kind">
+                                                <span class="fa fa-square mr4"/>
+                                                <t t-if="record.kind_id.raw_value">
+                                                    <field name="kind_id"/>
+                                                </t>
+                                                <t t-if="!record.kind_id.raw_value">
+                                                    <span>Undefined</span>
+                                                </t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                             <div class="o_request_kanban_row">
+                              <div class="o_partner_icon mr8">
+                                <t t-if="record.partner_id.raw_value">
+                                    <div>
+                                        <a type="open">
+                                            <img t-att-src="kanban_image('res.partner', 'image_128', record.partner_id.raw_value)"
+                                                 t-att-title="record.partner_id.value"
+                                                 t-att-alt="record.partner_id.value"
+                                                 class="oe_kanban_image"/>
+                                        </a>
+                                    </div>
+                                </t>
+                             </div>
+                            <div>
+                                <div name="request_text" class="o_request_kanban_text">
+                                    <div>
+                                        <field name="request_text_sample"/>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                                <div class="o_request_kanban_dates o_request_kanban_row" name="dates">
+                                    <div class="o_date"
+                                         t-att-title="'Created by\n' + record.author_id.value + '\n' + record.date_created.value">
+                                        <t t-if="record.author_id.raw_value">
+                                            <a type="open">
+                                                <img t-att-src="kanban_image('res.partner', 'image_128', record.author_id.raw_value)"
+                                                     t-att-alt="record.author_id.value"
+                                                     class="oe_kanban_image"/>
+                                            </a>
+                                            <strong>
+                                                <field name="author_id"/>
+                                            </strong>
+                                            <div class="oe_kanban_hidden_text">
+                                                 <field name="date_created"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <div class="o_date"
+                                         t-att-title="'Assigned to\n' + record.user_id.value + '\n' + record.date_assigned.value">
+                                        <t t-if="record.user_id.raw_value">
+                                            <a type="open">
+                                                <img t-att-src="kanban_image('res.users', 'image_128', record.user_id.raw_value)"
+                                                     t-att-alt="record.user_id.value"
+                                                     class="oe_kanban_image"/>
+                                            </a>
+                                            <strong>
+                                                <field name="user_id"/>
+                                            </strong>
+                                            <div class="oe_kanban_hidden_text">
+                                                 <field name="date_assigned"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <div class="o_date"
+                                         t-att-title="'Closed by\n' + record.closed_by_id.value + '\n' + record.date_closed.value">
+                                        <t t-if="record.closed_by_id.raw_value">
+                                            <a type="open">
+                                                <img t-att-src="kanban_image('res.users', 'image_128', record.closed_by_id.raw_value)"
+                                                     t-att-alt="record.closed_by_id.value"
+                                                     class="oe_kanban_image"/>
+                                            </a>
+                                            <strong>
+                                                <field name="closed_by_id"/>
+                                            </strong>
+                                            <div class="oe_kanban_hidden_text">
+                                                 <field name="date_closed"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_request_search">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="display_name" string=""
+                       filter_domain="['|', ('name', 'ilike', self), ('request_text', 'ilike', self)]"/>
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="kind_id"/>
+                <field name="category_id"/>
+                <field name="stage_type_id"/>
+                <field name="partner_id"/>
+                <field name="author_id"/>
+                <field name="user_id"/>
+                <field name="created_by_id"/>
+                <field name="closed_by_id"/>
+
+                <filter name="filter_closed"
+                        string="Closed"
+                        domain="[('closed', '=', True)]"/>
+
+                <separator/>
+                <filter name="filter_open"
+                        string="Open"
+                        domain="[('closed', '=', False)]"/>
+
+                <separator/>
+                <filter name="filter_unassigned"
+                        string="Unassigned"
+                        domain="[('user_id', '=', False)]"/>
+                <filter name="filter_assigned_to_me"
+                        string="Assigned to me"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter name="filter_created_by_me"
+                        string="My requests"
+                        domain="[('created_by_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Unread Messages"
+                        name="message_needaction"
+                        domain="[('message_needaction','=',True)]"/>
+
+                <group name="group_group_by" expand="0" string="Group by...">
+                    <filter name="filter_group_by_type"
+                            string="Type" context="{'group_by': 'type_id'}"/>
+                    <filter name="filter_group_by_kind"
+                            string="Kind" context="{'group_by': 'kind_id'}"/>
+                    <filter name="filter_group_by_category"
+                            string="Category" context="{'group_by': 'category_id'}"/>
+                    <filter name="filter_group_by_stage"
+                            string="Stage" context="{'group_by': 'stage_id'}"/>
+                    <filter name="filter_group_by_stage_type"
+                            string="Stage Type" context="{'group_by': 'stage_type_id'}"/>
+                    <filter name="filter_group_by_partner"
+                            string="Partner" context="{'group_by': 'partner_id'}"/>
+                    <filter name="filter_group_by_assigned"
+                            string="Assigned" context="{'group_by': 'user_id'}"/>
+                    <filter name="filter_group_by_author"
+                            string="Author" context="{'group_by': 'author_id'}"/>
+                    <filter name="filter_group_by_created_by"
+                            string="Created by" context="{'group_by': 'created_by_id'}"/>
+                    <filter name="filter_group_by_closed_by"
+                            string="Closed by" context="{'group_by': 'closed_by_id'}"/>
+                    <filter name="filter_group_by_creation_date"
+                            string="Creation date" context="{'group_by': 'date_created'}"/>
+                    <filter name="filter_group_by_priority"
+                            string="Priority"
+                            context="{'group_by': 'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_request_request_graph">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="type_id"/>
+                <field name="stage_type_id"/>
+            </graph>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_request_request_pivot">
+        <field name="model">request.request</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="stage_type_id" type="col"/>
+                <field name="kind_id" type="row"/>
+                <field name="type_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_request_window">
+        <field name="name">Requests</field>
+        <field name="res_model">request.request</field>
+        <field name="view_mode">kanban,tree,graph,pivot,form,activity</field>
+        <field name="context">{'search_default_filter_open': 1, 'search_default_filter_assigned_to_me': 1, 'search_default_filter_created_by_me': 1, 'search_default_filter_unassigned': 1}</field>
+    </record>
+
+    <menuitem id="menu_request_type_view"
+              name="All Requests"
+              parent="menu_request"
+              action="action_request_window"
+              groups="group_request_user"/>
+
+</odoo>

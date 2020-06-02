@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Request Type non_ascii-->
+    <!-- This is request type with non-ascii names
+         used in tests to ensure, that names have no UnicodeDecode errors
+    -->
+    <record id="request_type_non_ascii" model="request.type">
+        <field name="name">Запит на встановлення ОС</field>
+        <field name="code">install_os</field>
+        <field name="kind_id" ref="request_kind_demo"/>
+        <field name="help_html"><![CDATA[
+             Використовуючи даний тип запиту, ви можете замовити встановлення
+             на ваш комп'ютер вашої улюбленої операційної системи.
+        ]]></field>
+        <field name="category_ids"
+               eval="[(6, 0, [ref('generic_request.request_category_demo_technical_configuration')])]"/>
+    </record>
+
+    <!-- Simple request type stages -->
+    <record id="request_stage_type_non_ascii_draft" model="request.stage">
+        <field name="sequence" eval="1"/>
+        <field name="name">Чорновик</field>
+        <field name="code">draft</field>
+        <field name="type_id" ref="request_stage_type_draft"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="help_html"><![CDATA[
+            Не забудьте натиснути кнопку "Відправлено" щоб відправити ваш запит
+            на розгляд.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_non_ascii_sent" model="request.stage">
+        <field name="sequence" eval="2"/>
+        <field name="name">Відправлено</field>
+        <field name="code">sent</field>
+        <field name="type_id" ref="request_stage_type_sent"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="help_html"><![CDATA[
+            Ваш запит відправлено на розгляд. Очукуйте на результат.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_non_ascii_confirmed" model="request.stage">
+        <field name="sequence" eval="3"/>
+        <field name="name">Підтверджено</field>
+        <field name="code">confirmed</field>
+        <field name="type_id" ref="request_stage_type_closed_ok"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="help_html"><![CDATA[
+            Вітаємо! Ваш запит підтверджено.
+        ]]></field>
+    </record>
+    <record id="request_stage_type_non_ascii_rejected" model="request.stage">
+        <field name="sequence" eval="4"/>
+        <field name="name">Відхилено</field>
+        <field name="code">rejected</field>
+        <field name="type_id" ref="request_stage_type_closed_fail"/>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="help_html"><![CDATA[
+            Ваш запит відхилено :(
+            Ви можете спробувати відправити новий запит.
+        ]]></field>
+    </record>
+
+    <!-- Simple request type routes -->
+    <record id="request_stage_route_type_non_ascii_draft_to_sent"
+            model="request.stage.route">
+        <field name="name">Відправити</field>
+        <field name="stage_from_id" ref="request_stage_type_non_ascii_draft"/>
+        <field name="stage_to_id" ref="request_stage_type_non_ascii_sent"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+    </record>
+    <record id="request_stage_route_type_non_ascii_sent_confirmed"
+            model="request.stage.route">
+        <field name="name">Підтвердити</field>
+        <field name="stage_from_id" ref="request_stage_type_non_ascii_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_non_ascii_confirmed"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="allowed_group_ids"
+                eval="[(6, 0, [ref('generic_request.group_request_manager')])]"/>
+    </record>
+    <record id="request_stage_route_type_non_ascii_sent_rejected"
+            model="request.stage.route">
+        <field name="name">Відхилити</field>
+        <field name="stage_from_id" ref="request_stage_type_non_ascii_sent"/>
+        <field name="stage_to_id" ref="request_stage_type_non_ascii_rejected"/>
+        <field name="request_type_id" ref="request_type_non_ascii"/>
+        <field name="require_response" eval="True"/>
+        <field name="allowed_user_ids"
+                eval="[(6, 0, [ref('generic_request.user_demo_request_manager_2')])]"/>
+    </record>
+
+    <!-- Request Request -->
+    <record id="request_request_type_non_ascii_demo_1" model="request.request">
+        <field name="request_text"><![CDATA[
+             Доброго дня!
+             Встановіть будь ласка на мій комп'ютер ОС Ubuntu!
+        ]]></field>
+        <field name="type_id" ref="request_type_non_ascii"/>
+        <field name="created_by_id" ref="user_demo_request"/>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="category_id" ref="request_category_demo_technical_configuration"/>
+    </record>
+</odoo>

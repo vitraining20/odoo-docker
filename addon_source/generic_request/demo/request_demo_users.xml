@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Demo request users and groups -->
+    <record id="user_demo_request" model="res.users"
+            context="{'no_reset_password': True}">
+        <!-- This user can only view request, no settings -->
+        <field name="name">Demo Request User</field>
+        <field name="email">demo-request@demo.demo</field>
+        <field name="login">demo-request</field>
+        <field name="password">demo</field>
+        <field name="signature">--
+Mr Demo Request</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="groups_id" eval="[(6,0,[ref('generic_request.group_request_user')])]"/>
+    </record>
+    <record id="user_demo_request_manager" model="res.users"
+            context="{'no_reset_password': True}">
+        <!-- This user can almost everything with requests -->
+        <field name="name">Demo Request Manager</field>
+        <field name="email">demo-request-manager@demo.demo</field>
+        <field name="login">demo-request-manager</field>
+        <field name="password">demo</field>
+        <field name="signature">--
+Mr Demo Request Manager</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="groups_id" eval="[(6,0,[ref('generic_request.group_request_manager')])]"/>
+    </record>
+
+    <record id="user_demo_request_manager_2" model="res.users"
+            context="{'no_reset_password': True}">
+        <!-- This user can almost everything with requests -->
+        <!-- Second manager user to test request route user restriction -->
+        <field name="name">Demo Request Manager 2</field>
+        <field name="email">demo-request-manager-2@demo.demo</field>
+        <field name="login">demo-request-manager-2</field>
+        <field name="password">demo</field>
+        <field name="signature">--
+Mr Demo Request Manager 2</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="groups_id" eval="[(6,0,[ref('generic_request.group_request_manager')])]"/>
+    </record>
+
+    <record id="base.user_demo" model="res.users">
+        <field name="groups_id" eval="[(4, ref('generic_request.group_request_user'))]"/>
+    </record>
+</odoo>

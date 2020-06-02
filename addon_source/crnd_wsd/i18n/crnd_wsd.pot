@@ -1,0 +1,938 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* crnd_wsd
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-09 16:08+0000\n"
+"PO-Revision-Date: 2020-01-09 16:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crnd_wsd
+#: model:request.category,description:crnd_wsd.request_category_demo_website
+msgid "\n"
+"            SaAS related requests\n"
+"        "
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.category,description:crnd_wsd.request_category_demo_website_tech
+msgid "\n"
+"            Technical requests\n"
+"        "
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "<span class=\"fa fa-bars mr4\" title=\"Category\"/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "<span class=\"fa fa-chevron-down\">Read more</span>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "<span class=\"fa fa-chevron-up\">Read less</span>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "<span class=\"fa fa-hashtag mr4\" title=\"Type\"/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_simplified_line
+msgid "<span class=\"fa fa-info-circle info-toggle mr8\" title=\"Show request info\"/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "<span class=\"fa fa-square mr4\" title=\"Kind\"/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "<span class=\"wsd_request header-bg-filler\">Request</span>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "<span class=\"wsd_request header-bg-filler\">Response</span>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "<strong>Assigned</strong>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "<strong>Closed</strong>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "<strong>Created</strong>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,name:crnd_wsd.request_stage_type_upgrade_accepted
+msgid "Accepted"
+msgstr ""
+
+#. module: crnd_wsd
+#: code:addons/crnd_wsd/controllers/helpers.py:86
+#: code:addons/crnd_wsd/controllers/helpers.py:92
+#: code:addons/crnd_wsd/controllers/helpers.py:99
+#: code:addons/crnd_wsd/controllers/helpers.py:125
+#: code:addons/crnd_wsd/controllers/helpers.py:136
+#, python-format
+msgid "Access denied"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_filterbox
+msgid "All"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_type__website_comments_closed
+msgid "Are comments not available?"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_simplified_line
+msgid "Assigned"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Assignee"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_request__assignee_avatar
+msgid "Assignee (Avatar)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Author"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_request__author_avatar
+msgid "Author (Avatar)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Back"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "Below is example of list, that describes steps to solve request"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.type,name:crnd_wsd.request_type_bug_report
+msgid "Bug Report"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_stage_route_form
+msgid "Button Style"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,help:crnd_wsd.field_request_stage_route__website_button_style
+msgid "Buttons style for website"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/xml/templates.xml:11
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+#, python-format
+msgid "Cancel"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Category"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_progress
+msgid "Category\n"
+"                <span/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,note_html:crnd_wsd.demo_request_request_printer_1
+msgid "Choose printer You want to get access for"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model:request.stage.route,name:crnd_wsd.request_stage_route_type_bug_report_sent_to_closed
+#: model:request.stage.route,name:crnd_wsd.request_stage_route_type_generic_sent_to_closed
+msgid "Close"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_filterbox
+#: model:request.stage,name:crnd_wsd.request_stage_type_bug_report_closed
+#: model:request.stage,name:crnd_wsd.request_stage_type_generic_closed
+msgid "Closed"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_request__closed_by_avatar
+msgid "Closed By (Avatar)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Closed by"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Closing date"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+msgid "Comments"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_congratulation
+msgid "Congratulation!"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Create"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+msgid "Create request"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Created by"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_simplified_line
+msgid "Created: {{ rel_req.date_created }}"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Creation date"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_request__created_by_avatar
+msgid "Creator (Avatar)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "Current stage"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Danger"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Dark"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_action_log
+msgid "Date assigned"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Default"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.kind,name:crnd_wsd.request_kind_demo_wsd
+msgid "Demo WSD"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.kind,description:crnd_wsd.request_kind_demo_wsd
+msgid "Demo website service desk requests"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Description"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,help:crnd_wsd.field_request_type__website_comments_closed
+msgid "Disable website comments on closed requests"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:31
+#, python-format
+msgid "Discard"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:13
+#, python-format
+msgid "Don't leave yet,<br />it's still loading..."
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,name:crnd_wsd.request_stage_type_bug_report_draft
+#: model:request.stage,name:crnd_wsd.request_stage_type_generic_draft
+#: model:request.stage,name:crnd_wsd.request_stage_type_upgrade_draft
+msgid "Draft"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "Edit"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:199
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:212
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:231
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:242
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_stage_route_form
+msgid "Extra Action"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Fill request data"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Following errors happened during request creation!"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.type,name:crnd_wsd.request_type_generic
+msgid "Generic Question"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.type,description:crnd_wsd.request_type_generic
+msgid "Generic questions about anything"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "Here is just example of instruction."
+msgstr ""
+
+#. module: crnd_wsd
+#: code:addons/crnd_wsd/controllers/helpers.py:23
+#, python-format
+msgid "Image size excessive, uploaded images must be smaller than 42 million pixel"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Info"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Kind"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Light"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Link"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:10
+#, python-format
+msgid "Loading..."
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:20
+#, python-format
+msgid "Maybe you should consider reloading the application by pressing F5..."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_filterbox
+msgid "My"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_navigation
+msgid "New"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Next"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_filterbox
+msgid "Open"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Please,"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:257
+#, python-format
+msgid "Please, fill response text!"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Primary"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "Read less"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "Read more"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_extra_action:0
+msgid "Redirect to My Requests"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:res.company,request_wsd_public_ui_visibility:0
+msgid "Redirect to login"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,help:crnd_wsd.field_res_config_settings__request_wsd_public_ui_visibility
+msgid "Redirect to login - unauthorized users will be\n"
+"         automatically redirected to login page.\n"
+"         Restricted UI - unauthorized users will be able to pass\n"
+"         all steps of creating a request but unable to submit\n"
+"         request until logged in."
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,name:crnd_wsd.request_stage_type_upgrade_rejected
+msgid "Rejected"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.type,description:crnd_wsd.request_type_bug_report
+msgid "Report a bug"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_request_request
+msgid "Request"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_progress
+msgid "Request\n"
+"                <span/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_request_category
+msgid "Request Category"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_request_stage_route
+msgid "Request Stage Route"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_request_type
+msgid "Request Type"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_res_company__request_wsd_public_ui_visibility
+msgid "Request Wsd Public Ui Visibility"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_congratulation
+msgid "Request have been created!"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,description:crnd_wsd.request_stage_type_bug_report_closed
+#: model:request.stage,description:crnd_wsd.request_stage_type_generic_closed
+msgid "Request is closed"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,description:crnd_wsd.request_stage_type_bug_report_draft
+#: model:request.stage,description:crnd_wsd.request_stage_type_generic_draft
+msgid "Request is in stage Draft"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,description:crnd_wsd.request_stage_type_bug_report_sent
+#: model:request.stage,description:crnd_wsd.request_stage_type_generic_sent
+msgid "Request is in stage Sent"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model,name:crnd_wsd.model_request_kind
+msgid "Request kind"
+msgstr ""
+
+#. module: crnd_wsd
+#: code:addons/crnd_wsd/controllers/main.py:380
+#, python-format
+msgid "Request text is empty!"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_navigation
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_portal_my_home
+msgid "Requests"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:res.company,request_wsd_public_ui_visibility:0
+msgid "Restricted UI"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.category,name:crnd_wsd.request_category_demo_website
+msgid "SaAS"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/request_actions.js:26
+#: code:addons/crnd_wsd/static/src/xml/templates.xml:10
+#, python-format
+msgid "Save"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_filterbox
+msgid "Search by name, type, category or request message"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Secondary"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+msgid "Select category"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Select type"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_progress
+#: model:request.stage.route,name:crnd_wsd.request_stage_route_type_bug_report_draft_to_sent
+#: model:request.stage.route,name:crnd_wsd.request_stage_route_type_generic_draft_to_sent
+msgid "Send"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,name:crnd_wsd.request_stage_type_bug_report_sent
+#: model:request.stage,name:crnd_wsd.request_stage_type_generic_sent
+msgid "Sent"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:website.menu,name:crnd_wsd.menu_service_desk
+msgid "Service Desk"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,name:crnd_wsd.group_service_desk_website_user
+msgid "Service Desk Website user"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,name:crnd_wsd.group_service_desk_website_user_advanced
+msgid "Service Desk Website user (Advanced)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,name:crnd_wsd.group_service_desk_website_user_all_requests
+msgid "Service Desk Website user (All requests)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_kind__show_as_website_filter
+msgid "Show As Website Filter"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Sign In"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "Sign Up"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,help:crnd_wsd.field_request_request__assignee_avatar
+#: model:ir.model.fields,help:crnd_wsd.field_request_request__author_avatar
+#: model:ir.model.fields,help:crnd_wsd.field_request_request__closed_by_avatar
+#: model:ir.model.fields,help:crnd_wsd.field_request_request__created_by_avatar
+msgid "Small-sized image of this contact. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,help_html:crnd_wsd.demo_request_request_upgrade_request_1
+#: model_terms:request.type,help_html:crnd_wsd.request_type_upgrade
+msgid "Specify what you want to upgrade"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "Stage"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "Step 1"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "Step 2"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "Step N"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:11
+#, python-format
+msgid "Still loading..."
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:12
+#, python-format
+msgid "Still loading...<br />Please be patient."
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Success"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.category,name:crnd_wsd.request_category_demo_website_support
+msgid "Support"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:17
+#, python-format
+msgid "Take a minute to get a coffee,<br />because it's loading..."
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.category,name:crnd_wsd.request_category_demo_website_tech
+msgid "Technical"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+msgid "There are currently no requests."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,note_html:crnd_wsd.demo_request_request_generic_question_1
+#: model_terms:request.type,note_html:crnd_wsd.request_type_generic
+msgid "There you should ask a questions related to our SaaS service."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,stage_help_html:crnd_wsd.demo_request_request_printer_1
+msgid "This is draft request. You can still edit it.\n"
+"             When you think it is finished, send it."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,help_html:crnd_wsd.demo_request_request_generic_question_1
+#: model_terms:request.type,help_html:crnd_wsd.request_type_generic
+msgid "This is request type for generic questions related to our SaaS service\n"
+"            Use this request type if you cannot find exact request type for your question"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,help_html:crnd_wsd.demo_request_request_printer_1
+msgid "This request type is used to request access to printer."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "To discussion"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+msgid "To response"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.request_short_info
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_body
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_simplified_line
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_request_table
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+msgid "Type"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_progress
+msgid "Type\n"
+"                <span/>"
+msgstr ""
+
+#. module: crnd_wsd
+#: code:addons/crnd_wsd/controllers/main.py:429
+#, python-format
+msgid "Unknown server error. See server logs."
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.type,name:crnd_wsd.request_type_upgrade
+msgid "Upgrade request"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.stage,name:crnd_wsd.request_stage_type_upgrade_upgraded
+msgid "Upgraded"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,comment:crnd_wsd.group_service_desk_website_user_all_requests
+msgid "Users in this groups can see all requests in system, but still not have access to internal UI."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_request_form
+msgid "View on Website"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_category__website_published
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_stage_route__website_published
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_type__website_published
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_category_search
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_stage_route_search
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_type_search
+msgid "Visible in Website"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.kind,website_filter_name:crnd_wsd.request_kind_demo_wsd
+msgid "WSD"
+msgstr ""
+
+#. module: crnd_wsd
+#: selection:request.stage.route,website_button_style:0
+msgid "Warning"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.view_request_stage_route_form
+msgid "Website"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_stage_route__website_button_style
+msgid "Website Button Style"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_stage_route__website_extra_action
+msgid "Website Extra Action"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_request_kind__website_filter_name
+msgid "Website Filter Name"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:ir.model.fields,field_description:crnd_wsd.field_res_config_settings__request_wsd_public_ui_visibility
+msgid "Website Service Desk (Public Visibility)"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,comment:crnd_wsd.group_service_desk_website_user_advanced
+msgid "Website advanced users of service desk. Users in this group can create requests with request types and categories they are subscribed for, even if these types and categories not website published."
+msgstr ""
+
+#. module: crnd_wsd
+#: model:request.category,description:crnd_wsd.request_category_demo_website_support
+msgid "Website support related requests"
+msgstr ""
+
+#. module: crnd_wsd
+#: model:res.groups,comment:crnd_wsd.group_service_desk_website_user
+msgid "Website users of service desk"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:request.request,instruction_html:crnd_wsd.demo_request_request_printer_1
+msgid "You can use here html, for formatting."
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/blockui.js:14
+#, python-format
+msgid "You may not believe it, <br/> but the application is actually loading..."
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_congratulation
+msgid "Your request will be reviewed soon"
+msgstr ""
+
+#. module: crnd_wsd
+#. openerp-web
+#: code:addons/crnd_wsd/static/src/js/widgets.js:80
+#, python-format
+msgid "less"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "or"
+msgstr ""
+
+#. module: crnd_wsd
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_request_data
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_category
+#: model_terms:ir.ui.view,arch_db:crnd_wsd.wsd_requests_new_select_type
+msgid "to be able to view and create requests."
+msgstr ""
+

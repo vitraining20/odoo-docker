@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Look at Odoo code (openepr|odoo)/modules/db.py:create_categories
+         for info abuto a way module categories are generated.
+         This xmlid is used to avoid duplication of module category -->
+    <record model="ir.module.category" id="base.module_category_generic_request">
+        <field name="name">Generic Request</field>
+        <field name="sequence">100</field>
+        <field name="visible" eval="1" />
+    </record>
+
+    <record id="group_request_user_implicit_ro" model="res.groups">
+        <field name="name">Request user implicit (read only)</field>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Group that adds readonly access to requests.
+            Does not add any access to menu.
+        </field>
+    </record>
+
+    <record id="group_request_user_implicit" model="res.groups">
+        <field name="name">Request user implicit</field>
+        <field name="implied_ids"
+               eval="[(4, ref('generic_request.group_request_user_implicit_ro'))]"/>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Request user (implicit) can create requests.
+            Can see only own requests or requests assigned to him.
+            Does not have any access to request menu.
+        </field>
+    </record>
+
+    <record id="group_request_user" model="res.groups">
+        <field name="name">Request user</field>
+        <field name="implied_ids"
+               eval="[
+               (4, ref('generic_request.group_request_user_implicit')),
+               (4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Request user can create requests.
+            Can see only own requests or requests assigned to him.
+            Have access to requests menu
+        </field>
+    </record>
+
+    <record id="group_request_manager" model="res.groups">
+        <field name="name">Request manager</field>
+        <field name="implied_ids" eval="[(4, ref('generic_request.group_request_user'))]"/>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field name="comment">
+            Request manager have full control over requests, request types, etc...
+        </field>
+    </record>
+
+    <record id="group_request_user_can_change_author" model="res.groups">
+        <field name="name">Request user (can edit request author)</field>
+        <field name="implied_ids" eval="[(4, ref('generic_request.group_request_user'))]"/>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Users in this group can edit author of request while
+            request still on start stage. Author field will be frozen after
+            request have been moved to next stage.
+        </field>
+    </record>
+
+    <record id="group_request_manager_can_delete_request" model="res.groups">
+        <field name="name">Request manager (can delete requests)</field>
+        <field name="implied_ids" eval="[(4, ref('generic_request.group_request_manager'))]"/>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Users in this group can delete requests.
+            By default it is not allowed to delete requests.
+        </field>
+    </record>
+
+    <record id="group_request_user_see_all_requests" model="res.groups">
+        <field name="name">Request user (See all requests)</field>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Request user can see all requests.
+        </field>
+    </record>
+
+    <record id="group_request_user_write_all_requests" model="res.groups">
+        <field name="name">Request user (Write all requests)</field>
+        <field name="category_id" ref="base.module_category_generic_request"/>
+        <field name="comment">
+            Request user can read/write all requests.
+        </field>
+    </record>
+
+    <!-- Access rights for requests implicit user
+         - write/create/unlink access rights are restricted by ir.model.access.csv
+         - these rules will be transfered to Request user and Request manager groups
+           via implied_ids
+    -->
+    <record id="rule_request_category_user_by_subscription" model="ir.rule">
+        <field name="name">request categories by subscription</field>
+        <field name="model_id" ref="generic_request.model_request_category"/>
+        <field name="domain_force">[('message_partner_ids', 'child_of', user.commercial_partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="0" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+    <record id="rule_request_type_user_by_subscription" model="ir.rule">
+        <field name="name">request types by subscription</field>
+        <field name="model_id" ref="generic_request.model_request_type"/>
+        <field name="domain_force">[('message_partner_ids', 'child_of', user.commercial_partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="0" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+    <record id="rule_request_request_by_subscription" model="ir.rule">
+        <field name="name">Followed requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[('message_partner_ids', 'child_of', user.commercial_partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+    <record id="rule_request_request_by_partner" model="ir.rule">
+        <field name="name">Partner's requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[('partner_id', 'child_of', user.commercial_partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_create"/>
+    </record>
+    <record id="rule_request_request_by_assignee" model="ir.rule">
+        <field name="name">Assignee requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_create"/>
+    </record>
+    <record id="rule_request_request_by_creator_id" model="ir.rule">
+        <field name="name">Created by me requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[('created_by_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_implicit'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_create"/>
+    </record>
+
+    <record id="rule_request_request_see_all_requests" model="ir.rule">
+        <field name="name">See all requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_see_all_requests'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="0" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+
+    <record id="rule_request_request_write_all_requests" model="ir.rule">
+        <field name="name">Read/Write all requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_user_write_all_requests'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+
+
+    <!-- Request Manager Access rights -->
+    <record id="rule_request_category_manager" model="ir.rule">
+        <field name="name">Manager request categories</field>
+        <field name="model_id" ref="generic_request.model_request_category"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_manager'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="0" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+    <record id="rule_request_type_manager" model="ir.rule">
+        <field name="name">Manager request types</field>
+        <field name="model_id" ref="generic_request.model_request_type"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_manager'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="0" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="0" name="perm_create"/>
+    </record>
+    <record id="rule_request_request_manager" model="ir.rule">
+        <field name="name">Manager requests</field>
+        <field name="model_id" ref="generic_request.model_request_request"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('generic_request.group_request_manager'))]"/>
+        <field eval="0" name="perm_unlink"/>
+        <field eval="1" name="perm_write"/>
+        <field eval="1" name="perm_read"/>
+        <field eval="1" name="perm_create"/>
+    </record>
+</odoo>

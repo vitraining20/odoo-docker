@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="wsd_request_body" name="Request body">
+        <div class="row mb24">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 id="request-top-head"
+                            class="mt0 mb0 row"
+                            style="font-weight: bolder;">
+                            <span class="col-md-6">
+                                <span id="request-top-head-name"
+                                      t-esc="req.name"/>
+                                <span id="request-top-head-actions">
+                                    <a t-if="req.response_text"
+                                       href="#request-reponse-header"
+                                       title="To response"
+                                       class="fa fa-long-arrow-down"/>
+                                    <a href="#discussion"
+                                       title="To discussion"
+                                       class="fa fa-comments"/>
+                                </span>
+                            </span>
+                            <span class="col-md-6">
+                                <span class="badge pull-right"
+                                      title="Current stage"
+                                      id="request-top-head-stage"
+                                      t-attf-style="background-color: {{req.stage_bg_color}}; color: {{req.stage_label_color}}">
+
+                                    <t t-esc="req.stage_id.name"/>
+                                </span>
+                                <span t-if="req.stage_id.description"
+                                      role="button" data-toggle="popover"
+                                      title="Stage"
+                                      data-placement="left"
+                                      data-trigger="hover"
+                                      class="fa fa-question pull-right mr8 text-muted"
+                                      t-attf-data-content="{{ req.stage_id.description }}"/>
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="request-head" class="row">
+                            <div id="request-head-left" class="col-md-5 col-sm-12">
+                                <div t-if="req.category_id" id="request-category">
+                                    <span class="fa fa-bars mr4" title="Category"/><span t-field="req.category_id.display_name"/>
+                                    <span t-if="req.category_id.description"
+                                          role="button" data-toggle="popover"
+                                          title="Category"
+                                          data-placement="right"
+                                          data-trigger="hover"
+                                          class="fa fa-question text-muted"
+                                          t-attf-data-content="{{ req.category_id.description }}"/>
+                                </div>
+                                <div id="request-type">
+                                    <span class="fa fa-hashtag mr4" title="Type"/><span t-field="req.type_id.name"/>
+                                    <span t-if="req.type_id.description"
+                                          role="button" data-toggle="popover"
+                                          title="Type"
+                                          data-placement="right"
+                                          data-trigger="hover"
+                                          class="fa fa-question text-muted"
+                                          t-attf-data-content="{{ req.type_id.description }}"/>
+                                </div>
+                                <div t-if="req.kind_id" id="request-kind">
+                                    <span class="fa fa-square mr4" title="Kind"/>
+                                    <span t-field="req.kind_id.display_name" title="Kind"/>
+                                    <span t-if="req.kind_id.description"
+                                          role="button" data-toggle="popover"
+                                          title="Kind"
+                                          data-placement="right"
+                                          data-trigger="hover"
+                                          class="fa fa-question text-muted"
+                                          t-attf-data-content="{{ req.kind_id.description }}"/>
+                                </div>
+                            </div>
+                            <div id="request-head-right" class="col-md-5 col-sm-12">
+                            </div>
+                            <div id="request-head-actions" class="col-md-2 col-sm-12">
+                                <t t-foreach="action_routes" t-as="req_act">
+                                    <div class="text-right">
+                                        <a href="#"
+                                           t-attf-class="request-action btn btn-sm btn-{{ req_act.website_button_style }}"
+                                           t-att-title="req_act.name or req_act.display_name"
+                                           t-att-data-action-id="req_act.id"
+                                           t-att-data-require-response="req_act.close and req_act.require_response"
+                                           t-esc="req_act.name or req_act.display_name"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div id="request-body-container" class="row">
+                            <div id="request-body-text" class="col-md-12">
+                                <h4 class="wsd_request header-separator">
+                                    <span class="wsd_request header-bg-filler">Request</span>
+                                </h4>
+
+                                <span t-if="can_change_request_text"
+                                      class="fa fa-edit pull-right open-editor"
+                                      title="Edit"/>
+                                <div id="request-body-text-content"
+                                     t-raw="req.request_text">
+                                </div>
+                                <a class="request-readmore-button"
+                                     style="display: none"
+                                     title="Read more">
+                                    <span class="fa fa-chevron-down">Read more</span>
+                                </a>
+                                <a class="request-readless-button"
+                                     style="display: none"
+                                     title="Read less">
+                                    <span class="fa fa-chevron-up">Read less</span>
+                                </a>
+                            </div>
+                            <div t-if="req.response_text" id="request-body-response" class="col-md-12">
+                                <h4 class="wsd_request header-separator" id="request-reponse-header">
+                                    <span class="wsd_request header-bg-filler">Response</span>
+                                </h4>
+                                <div id="request-response-content"
+                                     t-field="req.response_text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <t t-call="crnd_wsd.wsd_request_action_log"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="wsd_request_action_log" name="Request action log">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb8">
+                <span t-field="req.author_avatar"
+                      class="o_not_editable"
+                      title="Author"
+                      t-options='{"widget": "image", "class": "pull-left", "style": "max-height: 60px; max-width: 60px;"}'/>
+                <div class="pull-left ml16">
+                    <strong>Created</strong>
+                    <div t-field="req.date_created"
+                         title="Creation date"/>
+                    <div t-field="req.author_id.name"
+                         title="Author"/>
+                    <div t-if="req.author_id != req.created_by_id.partner_id"
+                         t-field="req.created_by_id"
+                         title="Created by"
+                         class="fa fa-caret-right"/>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb8">
+                <t t-if="req.date_assigned">
+                    <span t-field="req.assignee_avatar"
+                          class="o_not_editable"
+                          title="Assignee"
+                          t-options='{"widget": "image", "class": "pull-left", "style": "max-height: 60px; max-width: 60px;"}'/>
+                    <div class="pull-left ml16">
+                        <strong>Assigned</strong>
+                        <div t-field="req.date_assigned"
+                             title="Date assigned"/>
+                        <div t-field="req.user_id"
+                             title="Assignee"/>
+                    </div>
+                </t>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb8">
+                <t t-if="req.date_closed">
+                <span t-field="req.closed_by_avatar"
+                      class="o_not_editable"
+                      title="Closed by"
+                      t-options='{"widget": "image", "class": "pull-left", "style": "max-height: 60px; max-width: 60px;"}'/>
+                <div class="pull-left ml16">
+                    <strong>Closed</strong>
+                    <div t-field="req.date_closed"
+                         title="Closing date"/>
+                    <div t-field="req.closed_by_id"
+                         title="Closed by"/>
+                </div>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <template id="wsd_request_comments" name="Request comments">
+        <div class="request-comments">
+            <div id="discussion"
+                 class="hidden-print request_comments_chatter"
+                 t-att-data-token="token"
+                 t-att-data-res_model="req._name"
+                 t-att-data-res_id="req.id"
+                 t-att-data-pager_step="message_per_page or 10"
+                 t-att-data-allow_composer="'0' if disable_composer else '1'">
+            </div>
+        </div>
+    </template>
+
+    <template id="wsd_request" name="Request">
+        <t t-call="crnd_wsd.wsd_layout">
+            <div class="container wsd_request" t-att-data-request-id="req.id">
+
+                <t t-call="crnd_wsd.wsd_request_navigation">
+                    <t t-set="request_name" t-value="req.name"/>
+                    <a class="btn btn-primary"
+                       href="/requests/new">Create request</a>
+                </t>
+                <t t-call="crnd_wsd.wsd_request_body"/>
+
+                <t t-call="crnd_wsd.wsd_request_comments"/>
+            </div>
+        </t>
+    </template>
+
+</odoo>

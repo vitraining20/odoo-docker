@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="generic_request.request_type_sequence" model="request.type">
+        <field name="website_published" eval="True"/>
+    </record>
+
+    <record id="generic_request.request_stage_route_type_sequence_new_to_sent"
+            model="request.stage.route">
+        <field name="website_published" eval="True"/>
+    </record>
+
+    <record id="demo_request_request_printer_1" model="request.request">
+        <field name="request_text"><![CDATA[
+            <h1>Access request for printer in 438 room</h1>
+
+            <p>Please, give me access to printer located in 438 room</p>
+        ]]></field>
+        <field name="type_id" ref="generic_request.request_type_sequence"/>
+        <field name="created_by_id" ref="user_demo_service_desk_website"/>
+    </record>
+</odoo>

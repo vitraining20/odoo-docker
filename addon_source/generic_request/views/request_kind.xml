@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_request_kind_search">
+        <field name="name">view.request.kind.search</field>
+        <field name="model">request.kind</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+
+                <separator/>
+                <filter name="filter_archived"
+                        string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <filter name="filter_active"
+                        string="Active"
+                        domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_request_kind_tree">
+        <field name="name">view.request.kind.tree</field>
+        <field name="model">request.kind</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+                <field name="request_type_count"/>
+                <field name="request_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_kind_form">
+        <field name="name">view.request.kind.form</field>
+        <field name="model">request.kind</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_all_requests"
+                                type="object"
+                                class="oe_stat_button" icon="fa-comments-o">
+                            <field string="Requests" name="request_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="action_show_request_type"
+                                type="object"
+                                class="oe_stat_button" icon="fa-clone">
+                            <field string="Request types"
+                                   name="request_type_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="toggle_active" type="object" groups="base.group_user"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   placeholder="Name..."/>
+                        </h1>
+                        <h3>
+                            <field name="code"
+                                   placeholder="Code..."/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group name="group_left">
+                        </group>
+                        <group name="group_right">
+                            <field name="sequence"/>
+                            <field name="menuitem_toggle"
+                                   groups="base.group_system"
+                                   widget="boolean_toggle"/>
+                            <field name="menuitem_name"
+                                   groups="base.group_system"
+                                   attrs="{'invisible': [('menuitem_toggle', '=', False)]}"
+                            />
+                            <field name="menuaction_name"
+                                   groups="base.group_system"
+                                   attrs="{'invisible': [('menuitem_toggle', '=', False)]}"
+
+                            />
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Description..."/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_request_kind_kanban" model="ir.ui.view">
+        <field name="name">view.request.kind.kanban</field>
+        <field name="model">request.kind</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_request_dashboard_kanban">
+                <field name="name"/>
+                <field name="display_name"/>
+                <field name="code"/>
+                <field name="description"/>
+                <field name="request_type_count"/>
+                <field name="request_open_count"/>
+                <field name="request_closed_count"/>
+                <field name="id"/>
+
+                <templates>
+                     <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_request_dashboard_kanban">
+                            <div class="o_request_dashboard_kanban_main">
+                                <div class="o_request_dashboard_content">
+                                    <div class="o_kanban_primary_left">
+                                        <div class="o_primary">
+                                            <span><t t-esc="record.display_name.raw_value"/></span>
+                                        </div>
+                                        <div t-if="record.code.raw_value" class="text-muted">
+                                            <span><t t-esc="record.code.raw_value"/></span>
+                                        </div>
+                                        <div class="o_buttons">
+                                            <a name="action_show_request_type"
+                                               type="object" title="Types">
+                                                <span class="fa fa-hashtag"/>
+                                                <span><t t-esc="record.request_type_count.raw_value"/></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_request_dashboard_kanban_boxes">
+                                <div class="o_request_dashboard_kanban_box" title="Open requests">
+                                    <a name="action_show_open_requests" type="object">
+                                        <span class="o_value"><t t-esc="record.request_open_count.value"/></span>
+                                    </a>
+                                </div>
+                                <div class="o_request_dashboard_kanban_box" title="Closed requests">
+                                    <a
+                                       name="action_show_closed_requests" type="object">
+                                        <span class="o_value"><t t-esc="record.request_closed_count.raw_value"/></span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_request_kind">
+        <field name="name">Kinds</field>
+        <field name="res_model">request.kind</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem id="menu_generic_configuration_kinds"
+              parent="generic_request.menu_configuration_requests"
+              action="action_request_kind"/>
+
+</odoo>

@@ -1,0 +1,104 @@
+.o_form_view {
+    .request_title {
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display: flex;
+
+            .field-with-icon {
+                min-width: 200px;
+
+                .field-icon {
+                    margin-top: 4px;
+                    padding-right: 7px;
+                    display: inline-flex;
+                    min-width: 23px;
+                }
+
+                .o_field_widget {
+                    display: inline-flex;
+                }
+            }
+        }
+
+        h2 .field-with-icon .field-icon {
+            margin-top: 4px;
+        }
+
+        h3 .field-with-icon .field-icon {
+            margin-top: 3px;
+        }
+
+        h4,
+        h5,
+        h6 {
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    }
+
+    // Based on mail chatter date separator
+    .request-separator {
+        margin-top: 15px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #d9d7d7;
+        text-align: center;
+
+        &.request-separator-info {
+            margin-bottom: 10px;
+            margin-top: 2px;
+        }
+
+        .request-separator-text {
+            position: relative;
+            top: 10px;
+            margin: 0 auto;
+            padding: 0 10px;
+            font-weight: bold;
+            background: white;
+        }
+    }
+
+    .request-html-field {
+        img {
+            max-width: 100%;
+        }
+
+        > .o_readonly {
+            max-height: 300px;
+            overflow: hidden;
+        }
+
+        > .request-html-read-more-link {
+            display: none;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            padding-top: 4px;
+            margin-top: 4px;
+            padding-bottom: 2px;
+            margin-bottom: 2px;
+
+            &:hover {
+                border-top: 1px solid;
+                padding-top: 3px;
+            }
+
+            &.fa::before {
+                margin-right: 4px;
+            }
+        }
+    }
+
+    &.o_form_readonly .request_title {
+        h4,
+        h5,
+        h6 {
+            .field-with-icon .field-icon {
+                margin-top: 1px;
+            }
+        }
+    }
+}

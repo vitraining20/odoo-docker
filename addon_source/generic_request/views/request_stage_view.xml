@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_request_stage_incoming_routes" model="ir.actions.act_window">
+        <field name="name">Incoming routes</field>
+        <field name="res_model">request.stage.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('stage_to_id', '=', active_id)]</field>
+        <field name="context">{'default_stage_to_id': active_id}</field>
+    </record>
+
+    <record id="action_request_stage_outgoing_routes" model="ir.actions.act_window">
+        <field name="name">Outgoing routes</field>
+        <field name="res_model">request.stage.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('stage_from_id', '=', active_id)]</field>
+        <field name="context">{'default_stage_from_id': active_id}</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_stage_search">
+        <field name="name">request.stage.search</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <separator/>
+
+                <field name="type_id"/>
+                <separator/>
+
+                <filter name="filter_archived"
+                        string="Archived"
+                        domain="[('active', '=', False)]"/>
+
+                <group expand="0" string="Group by...">
+                     <filter name="group_by_type"
+                             string="Type"
+                             context="{'group_by': 'type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_stage_tree">
+        <field name="name">view.request.stage</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="request_type_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_id"/>
+                <field name="res_bg_color" widget="color"/>
+                <field name="res_label_color" widget="color"/>
+                <field name="closed"/>
+                <field name="route_in_count"/>
+                <field name="route_out_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_request_stage_form">
+        <field name="name">view.request.stage</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_show_incoming_routes"
+                                type="object"
+                                class="oe_stat_button" icon="fa-comments-o">
+                            <field string="Routes In" name="route_in_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="action_show_outgoing_routes"
+                                type="object"
+                                class="oe_stat_button" icon="fa-comments-o">
+                            <field string="Routes Out" name="route_out_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="toggle_active" type="object"
+                                groups="generic_request.group_request_manager"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><label for="name" class="oe_edit_only"/><field name="name"/></h1>
+                        <h2><field name="request_type_id" readonly="1"/></h2>
+                    </div>
+                    <hr/>
+                    <notebook>
+                        <page string="Info" name="page_info">
+                            <group>
+                                <group>
+                                    <field name="type_id"/>
+                                    <field name="code"/>
+                                    <field name="closed"/>
+                                    <field name="use_custom_colors"/>
+                                </group>
+                                <group attrs="{'invisible': [('use_custom_colors', '=', True)]}">
+                                    <field name="res_bg_color" widget="color"/>
+                                    <field name="res_label_color" widget="color"/>
+                                </group>
+                                <group attrs="{'invisible': [('use_custom_colors', '=', False)]}">
+                                    <field name="bg_color" widget="color"/>
+                                    <field name="label_color" widget="color"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Help" name="page_help">
+                            <field name="help_html"
+                                   placeholder="Help message for this stage..."/>
+                        </page>
+                        <page string="Description" name="page_description">
+                            <field name="description"
+                                   placeholder="Description..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

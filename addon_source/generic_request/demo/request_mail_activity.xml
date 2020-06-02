@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mail activity: Call - for Printer Request -->
+    <record id="printer_request_mail_activity_call" model="mail.activity">
+        <field name="activity_type_id" ref="mail.mail_activity_data_call"/>
+        <field name="res_model_id" ref="model_request_request"/>
+        <field name="res_id" ref="request_request_type_sequence_printer_request"/>
+        <field name="summary">Call for details</field>
+        <field name="note">
+            Call to customer and clarify details about printer access
+        </field>
+        <field name="user_id" ref="user_demo_request_manager"/>
+    </record>
+</odoo>

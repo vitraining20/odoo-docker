@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view for generic request sla rule.type -->
+    <record id="generic_request_generic-event_category" model="ir.ui.view">
+        <field name="name">request.event.category.tree</field>
+        <field name="model">request.event.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="generic_request_generic_event_category_view_search" model="ir.ui.view">
+        <field name="name">request.event.category.search</field>
+        <field name="model">request.event.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="generic_request_generic_event_category_view_form" model="ir.ui.view">
+        <field name="name">request.event.category.form</field>
+        <field name="model">request.event.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="title" class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                        <h3>
+                            <field name="code" placeholder="Code..."/>
+                        </h3>
+                    </div>
+                    <field name="description" placeholder="Description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_request_generi_event_category_view" model="ir.actions.act_window">
+        <field name="name">Event categories</field>
+        <field name="res_model">request.event.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

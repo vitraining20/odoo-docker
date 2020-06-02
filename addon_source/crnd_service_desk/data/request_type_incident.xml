@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Request Type incident: sequence-->
+    <record id="seq_request_type_incident" model="ir.sequence" forcecreate="False">
+        <field name="name">Incident Request Seq</field>
+        <field name="code">request.incident.sequence</field>
+        <field name="prefix">INCIDENT-%(month)s%(year)s-</field>
+        <field name="padding">7</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <!-- Request Type incident-->
+    <record id="request_type_incident" model="request.type" forcecreate="False">
+        <field name="name">Incident</field>
+        <field name="code">incident</field>
+        <field name="color">#F09676</field>
+        <field name="sequence_id" ref="seq_request_type_incident"/>
+        <field name="help_html"><![CDATA[
+            This is the type of incident request.
+        ]]></field>
+    </record>
+
+    <!-- Incident request type stages -->
+    <record id="request_stage_type_incident_draft" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="1"/>
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_type_incident_new" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="2"/>
+        <field name="name">New</field>
+        <field name="code">new</field>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_type_incident_classification" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="3"/>
+        <field name="name">Classification</field>
+        <field name="code">classification</field>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_type_incident_progress" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="4"/>
+        <field name="name">Progress</field>
+        <field name="code">progress</field>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+     <record id="request_stage_type_incident_done" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="5"/>
+        <field name="name">Done</field>
+        <field name="code">done</field>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_type_incident_rejected" model="request.stage" forcecreate="False">
+        <field name="sequence" eval="6"/>
+        <field name="name">Rejected</field>
+        <field name="code">rejected</field>
+        <field name="closed" eval="True"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+
+    <!-- Incident request type routes -->
+    <record id="request_stage_route_type_incident_draft_to_new"
+            model="request.stage.route" forcecreate="False">
+        <field name="name">New</field>
+        <field name="stage_from_id" ref="request_stage_type_incident_draft"/>
+        <field name="stage_to_id" ref="request_stage_type_incident_new"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_route_type_incident_new_to_classification"
+            model="request.stage.route" forcecreate="False">
+        <field name="name">Classification</field>
+        <field name="stage_from_id" ref="request_stage_type_incident_new"/>
+        <field name="stage_to_id" ref="request_stage_type_incident_classification"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_route_type_incident_classification_to_rejected"
+            model="request.stage.route" forcecreate="False">
+        <field name="name">Reject</field>
+        <field name="stage_from_id" ref="request_stage_type_incident_classification"/>
+        <field name="stage_to_id" ref="request_stage_type_incident_rejected"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_route_type_incident_classification_to_progress"
+            model="request.stage.route" forcecreate="False">
+        <field name="name">Progress</field>
+        <field name="stage_from_id" ref="request_stage_type_incident_classification"/>
+        <field name="stage_to_id" ref="request_stage_type_incident_progress"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+    <record id="request_stage_route_type_incident_progress_to_done"
+            model="request.stage.route" forcecreate="False">
+        <field name="name">Done</field>
+        <field name="stage_from_id" ref="request_stage_type_incident_progress"/>
+        <field name="stage_to_id" ref="request_stage_type_incident_done"/>
+        <field name="request_type_id" ref="request_type_incident"/>
+    </record>
+</odoo>
